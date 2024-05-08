@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Container, Heading, Stack, Card, CardHeader, Box, Button, CardBody, CardFooter, SimpleGrid, Text } from '@chakra-ui/react'
+import { Container, Heading, Stack, Box, SimpleGrid } from '@chakra-ui/react'
+import DashboardCard from "../components/DashboardCard"
 
 const Home = () => {
-  const [currentUser, setCurrentUser] = useState('Mdd')
+  const [currentUser, setCurrentUser] = useState('ADMIN')
 
   return (
     <>
@@ -29,36 +30,16 @@ const AdminHome = () => {
         <Box>
           <Heading mb='2rem' as='h2' size='lg'>Manage Voyagers</Heading>
           <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Voyager Details</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Add New Voyager</Heading>
-              </CardHeader>
-            </Card>
+            <DashboardCard title='Voyager Details' />
+            <DashboardCard title='Add New Voyager' />
           </SimpleGrid>
         </Box>
         <Box>
           <Heading mb='2rem' as='h2' size='lg'>Manage Menu Items</Heading>
           <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Catering</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Stationery</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Movies</Heading>
-              </CardHeader>
-            </Card>
+            <DashboardCard title='Catering' />
+            <DashboardCard title='Stationery' />
+            <DashboardCard title='Movies' />
           </SimpleGrid>
         </Box>
       </Stack>
@@ -74,26 +55,10 @@ const MangerHome = () => {
         <Box>
           <Heading mb='2rem' as='h2' size='lg'>View Bookings</Heading>
           <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Movie Tickets</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Beauty Salon</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Fitness Center</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Party Hall</Heading>
-              </CardHeader>
-            </Card>
+            <DashboardCard title='Movie Tickets' />
+            <DashboardCard title='Beauty Salon' />
+            <DashboardCard title='Fitness Center' />
+            <DashboardCard title='Party Hall' />
           </SimpleGrid>
         </Box>
       </Stack>
@@ -109,41 +74,17 @@ const VoyagerHome = () => {
         <Box>
           <Heading mb='2rem' as='h2' size='lg'>Order Items</Heading>
           <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Catering</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Stationery</Heading>
-              </CardHeader>
-            </Card>
+            <DashboardCard title='Catering' />
+            <DashboardCard title='Stationery' />
           </SimpleGrid>
         </Box>
         <Box>
           <Heading mb='2rem' as='h2' size='lg'>Book a Service</Heading>
           <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Movies</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Beauty Salon</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Fitness Center</Heading>
-              </CardHeader>
-            </Card>
-            <Card minH={100} style={{ cursor: 'pointer' }} _hover={{ boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)' }}>
-              <CardHeader>
-                <Heading size='md'>Party Hall</Heading>
-              </CardHeader>
-            </Card>
+            <DashboardCard title='Movies' />
+            <DashboardCard title='Beauty Salon' />
+            <DashboardCard title='Fitness Center' />
+            <DashboardCard title='Party Hall' />
           </SimpleGrid>
         </Box>
       </Stack>
