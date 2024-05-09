@@ -1,5 +1,5 @@
 import { Button, Container, Heading, Stack } from "@chakra-ui/react"
-import FormTextField from "../components/FormTextField"
+import FormTextField from "../components/FormInput"
 import { useState } from "react"
 
 

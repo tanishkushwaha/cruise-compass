@@ -6,6 +6,7 @@ import VoyagerDetails from './pages/VoyagerDetails'
 import ManageCatering from './pages/ManageCatering'
 import ManageStationery from './pages/ManageStationery'
 import ManageMovies from './pages/ManageMovies'
+import Dishes from './pages/Dishes'
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/manage/catering' element={<ManageCatering />} />
         <Route path='/manage/stationery' element={<ManageStationery />} />
         <Route path='/manage/movies' element={<ManageMovies />} />
+        <Route path='/manage/catering/food' element={<Dishes />} />
       </Routes>
 
     </>
