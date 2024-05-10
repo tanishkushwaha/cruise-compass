@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
-import Signin from './pages/Signin'
-import Home from './pages/Home'
+import Signin from './temp/Signin'
+import Home from './temp/Home'
 import Navbar from './components/Navbar'
 import AdminCatering from './pages/admin/AdminCatering'
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -9,7 +9,7 @@ import AdminMovies from './pages/admin/AdminMovies'
 import AdminSnacks from './pages/admin/AdminSnacks'
 import AdminStationery from './pages/admin/AdminStationery'
 import AdminUsers from './pages/admin/AdminUsers'
-import Catering from './pages/ManageCatering'
+import Catering from './temp/ManageCatering'
 import CateringOrders from './pages/headCook/CateringOrders'
 import FoodOrders from './pages/headCook/FoodOrders'
 import SnacksOrders from './pages/headCook/SnacksOrders'
@@ -56,8 +56,8 @@ const App = () => {
 
           <Route path='/book' element={<Book />} />
           <Route path='/book/movies' element={<Movies />} />
-          <Route path='/book/salon' element={<BeautySalon />} />
-          <Route path='/book/fitness-center' element={<FitnessCenter />} />
+          <Route path='/book/beauty-salon' element={<BeautySalon />} />
+          <Route path='/book/fitness-centre' element={<FitnessCenter />} />
           <Route path='/book/party-hall' element={<PartyHall />} />
 
 
