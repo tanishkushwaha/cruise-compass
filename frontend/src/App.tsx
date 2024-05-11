@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import Signin from './temp/Signin'
+import Login from './pages/auth/Login'
 import Home from './temp/Home'
 import Navbar from './components/Navbar'
 import AdminCatering from './pages/admin/AdminCatering'
@@ -9,7 +9,7 @@ import AdminMovies from './pages/admin/AdminMovies'
 import AdminSnacks from './pages/admin/AdminSnacks'
 import AdminStationery from './pages/admin/AdminStationery'
 import AdminUsers from './pages/admin/AdminUsers'
-import Catering from './temp/ManageCatering'
+import Catering from './pages/user/Catering'
 import CateringOrders from './pages/headCook/CateringOrders'
 import FoodOrders from './pages/headCook/FoodOrders'
 import SnacksOrders from './pages/headCook/SnacksOrders'
@@ -32,18 +32,9 @@ import Stationery from './pages/user/Stationery'
 const App = () => {
   return (
     <>
-      {/* <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/signin' element={<Signin />} />
-        <Route path='/voyagers/add' element={<VoyagerAdd />} />
-        <Route path='/voyagers/details' element={<VoyagerDetails />} />
-        <Route path='/manage/catering' element={<ManageCatering />} />
-        <Route path='/manage/stationery' element={<ManageStationery />} />
-        <Route path='/manage/movies' element={<ManageMovies />} />
-        <Route path='/manage/catering/food' element={<Dishes />} />
-      </Routes> */}
-
       <Routes>
+        <Route path='/login' element={<Login />} />
+
         <Route path='/' element={<Navbar />}>
 
           // USER ROUTES

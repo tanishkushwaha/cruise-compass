@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Container, Heading, Stack, Box, SimpleGrid } from '@chakra-ui/react'
-import DashboardCard from "../components/DashboardCard"
+import DashboardCard from "../components/MenuItemCard"
 
 const Home = () => {
   const [currentUser, setCurrentUser] = useState('ADMIN')

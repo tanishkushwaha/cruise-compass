@@ -1,5 +1,5 @@
 import { Container, Heading, Stack, SimpleGrid, Box } from "@chakra-ui/react"
-import DashboardCard from "../components/DashboardCard"
+import DashboardCard from "../components/MenuItemCard"
 
 
 const ManageMovies = () => {
