@@ -12,6 +12,7 @@ const Catering = () => {
       <SimpleGrid spacing={10} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
         <MenuItemCard title='Food' onClick={() => { navigate('/order/catering/food') }} />
         <MenuItemCard title='Snacks' onClick={() => { navigate('/order/catering/snacks') }} />
+        <MenuItemCard title='Beverages' onClick={() => { navigate('/order/catering/beverages') }} />
       </SimpleGrid>
     </Container>
   )

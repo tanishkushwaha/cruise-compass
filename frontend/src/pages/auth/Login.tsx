@@ -75,7 +75,7 @@ const Login = () => {
               <Flex direction='column' gap={4}>
                 <FormInput label='Enter ID' name='id' type='text' value={data.id} onChange={handleChange} error={errors.id} />
                 <FormInput label='Password' name='password' type='password' value={data.password} onChange={handleChange} error={errors.password} />
-                <Button mt='0.5rem' colorScheme='blue' letterSpacing={1} onClick={submitForm}>Submit</Button>
+                <Button w='6rem' mt='0.5rem' colorScheme='blue' letterSpacing={1} onClick={submitForm}>Submit</Button>
               </Flex>
             </GridItem>
           </Grid>
