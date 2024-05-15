@@ -8,7 +8,7 @@ interface ItemCardProps {
   price: string
 }
 
-const UserOrderCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCardProps) => {
+const OrderItemCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCardProps) => {
   return (
     <Card maxW='100%'>
       <CardBody>
@@ -44,4 +44,4 @@ const UserOrderCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCard
   )
 }
 
-export default UserOrderCard
+export default OrderItemCard

@@ -1,20 +1,20 @@
 import { Container, Heading, SimpleGrid, useDisclosure } from "@chakra-ui/react"
-import ItemCard from "../../components/AdminFoodCard"
+import ManageSnackItemCard from "../../components/ManageSnackItemCard"
 import FloatingAddButton from '../../components/FloatingAddButton'
-import AddDishModal from "../../components/AddDishModal"
+import AddSnackModal from "../../components/AddSnackModal"
 import { useEffect, useState } from "react"
 
 
-const Dishes = () => {
+const ManageSnackItems = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  interface DishType {
+  type PropsType = {
     name: string,
     descr: string,
     price: string
   }
 
-  const [data, setData] = useState<DishType[]>([])
+  const [data, setData] = useState<PropsType[]>([])
 
   // Add useEffect to fetch data
   useEffect(() => {
@@ -47,18 +47,18 @@ const Dishes = () => {
 
   return (
     <Container maxW='5xl' p='5rem'>
-      <Heading mb='3rem' as='h1'>Dishes</Heading>
+      <Heading mb='3rem' as='h1'>Manage Snacks</Heading>
       <SimpleGrid justifyContent='center' spacing={10} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
 
-        {data.map(dish => (
-          <ItemCard imgSrc="https://www.greenchickchop.in/cdn/shop/files/RumaliRoti_result.webp?v=1682660083" title={dish.name} descr={dish.descr} price={dish.price} />
+        {data.map(item => (
+          <ManageSnackItemCard imgSrc="https://www.greenchickchop.in/cdn/shop/files/RumaliRoti_result.webp?v=1682660083" title={item.name} descr={item.descr} price={item.price} />
         ))}
 
       </SimpleGrid>
-      <AddDishModal isOpen={isOpen} onClose={onClose} />
+      <AddSnackModal isOpen={isOpen} onClose={onClose} />
       <FloatingAddButton onClick={onOpen} />
     </Container >
   )
 }
 
-export default Dishes
+export default ManageSnackItems

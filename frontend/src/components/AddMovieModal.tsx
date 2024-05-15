@@ -2,45 +2,45 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButto
 import FormInput from "./FormInput"
 import { useState } from "react"
 
-interface AddDishModalProps {
+type PropsType = {
   isOpen: boolean,
   onClose: () => void
 }
 
-interface FormData {
-  dishName: string,
-  descr: string,
-  price: string,
+type DataType = {
+  movieName: string,
+  language: string,
+  rating: string,
 }
 
 
-const AddDishModal = ({ isOpen, onClose }: AddDishModalProps) => {
+const AddMovieModal = ({ isOpen, onClose }: PropsType) => {
 
-  const [data, setData] = useState<FormData>({
-    dishName: '',
-    descr: '',
-    price: ''
+  const [data, setData] = useState<DataType>({
+    movieName: '',
+    language: '',
+    rating: ''
   })
 
   const resetData = () => {
     setData({
-      dishName: '',
-      descr: '',
-      price: ''
+      movieName: '',
+      language: '',
+      rating: ''
     })
   }
 
   const [inputErrors, setInputErrors] = useState({
-    dishName: false,
-    descr: false,
-    price: false
+    movieName: false,
+    language: false,
+    rating: false
   })
 
   const resetErrors = () => {
     setInputErrors({
-      dishName: false,
-      descr: false,
-      price: false
+      movieName: false,
+      language: false,
+      rating: false
     })
   }
 
@@ -58,7 +58,7 @@ const AddDishModal = ({ isOpen, onClose }: AddDishModalProps) => {
     let formValid = true
 
     for (const field in data) {
-      if (!data[field as keyof FormData]) {
+      if (!data[field as keyof DataType]) {
         setInputErrors(prevStates => ({
           ...prevStates,
           [field]: true
@@ -85,20 +85,20 @@ const AddDishModal = ({ isOpen, onClose }: AddDishModalProps) => {
     <Modal isOpen={isOpen} onClose={handleModalClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Dish</ModalHeader>
+        <ModalHeader>Add Movie</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack direction='column' gap={5}>
-            <FormInput label="Enter Dish Name" name="dishName" value={data.dishName} onChange={handleChange} error={inputErrors.dishName} />
-            <FormInput label="Enter Description" name="descr" value={data.descr} onChange={handleChange} error={inputErrors.descr} />
-            <FormInput label="Enter Price" name="price" value={data.price} onChange={handleChange} error={inputErrors.price} />
+            <FormInput label="Enter Movie Name" name="movieName" value={data.movieName} onChange={handleChange} error={inputErrors.movieName} />
+            <FormInput label="Enter Language" name="language" value={data.language} onChange={handleChange} error={inputErrors.language} />
+            <FormInput label="Enter Rating" name="rating" value={data.rating} onChange={handleChange} error={inputErrors.rating} />
             <FormInput type="file" accept="image/png, image/jpeg" label="Upload Picture" name="picture" />
           </Stack>
         </ModalBody>
 
         <ModalFooter>
           <Button colorScheme='blue' mr={3} onClick={handleSubmit}>Add</Button>
-          <Button variant='ghost' onClick={handleModalClose}>Close</Button>
+          <Button variant='outline' colorScheme='blue' onClick={handleModalClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
@@ -106,4 +106,4 @@ const AddDishModal = ({ isOpen, onClose }: AddDishModalProps) => {
   )
 }
 
-export default AddDishModal
+export default AddMovieModal

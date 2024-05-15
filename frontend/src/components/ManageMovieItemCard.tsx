@@ -1,14 +1,14 @@
 import { Card, CardBody, Stack, Heading, Divider, CardFooter, Button, Image, Text, Flex } from "@chakra-ui/react"
 
-interface ItemCardProps {
+type PropsType = {
   imgSrc: string,
   imgAlt?: string,
   title: string,
-  descr: string,
-  price: string
+  languages: string,
+  rating: string
 }
 
-const ItemCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCardProps) => {
+const ManageMovieItemCard = ({ imgSrc, imgAlt = 'img', title, languages, rating }: PropsType) => {
   return (
     <Card maxW='100%'>
       <CardBody>
@@ -19,15 +19,14 @@ const ItemCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCardProps
         />
         <Stack mt='6' spacing='3'>
           <Heading size='md'>{title}</Heading>
-          <Text>
-            {descr}
+          <Text color='gray.400'>
+            {rating}
           </Text>
-          <Text color='blue.600' fontSize='2xl'>
-            {price}
+          <Text color='gray.400'>
+            {languages}
           </Text>
         </Stack>
       </CardBody>
-      <Divider />
       <CardFooter>
 
         <Flex width='100%' gap={2} justifyContent='right'>
@@ -44,4 +43,4 @@ const ItemCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCardProps
   )
 }
 
-export default ItemCard
+export default ManageMovieItemCard

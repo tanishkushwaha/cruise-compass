@@ -2,18 +2,12 @@ import { Routes, Route } from 'react-router-dom'
 import Login from './pages/auth/Login'
 import Home from './pages/home/Home'
 import Navbar from './components/Navbar'
-import AdminCatering from './pages/admin/AdminCatering'
 import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminFood from './pages/admin/AdminFood'
-import AdminMovies from './pages/admin/AdminMovies'
-import AdminSnacks from './pages/admin/AdminSnacks'
-import AdminStationery from './pages/admin/AdminStationery'
-import AdminUsers from './pages/admin/AdminUsers'
 import Catering from './pages/user/Catering'
 import CateringOrders from './pages/headCook/CateringOrders'
 import FoodOrders from './pages/headCook/FoodOrders'
-import SnacksOrders from './pages/headCook/SnacksOrders'
-import FitnessCenterBookings from './pages/manager/FitnessCenterBookings'
+import SnackOrders from './pages/headCook/SnackOrders'
+import FitnessCentreBookings from './pages/manager/FitnessCentreBookings'
 import Management from './pages/manager/Management'
 import MovieBookings from './pages/manager/MovieBookings'
 import PartyHallBookings from './pages/manager/PartyHallBookings'
@@ -30,6 +24,13 @@ import Stationery from './pages/user/Stationery'
 import Beverages from './pages/user/Beverages'
 import NotFound from './pages/others/NotFound'
 import BeverageOrders from './pages/headCook/BeverageOrders'
+import AddUser from './pages/admin/AddUser'
+import ViewUser from './pages/admin/ViewUser'
+import ManageBeverageItems from './pages/admin/ManageBeverageItems'
+import ManageFoodItems from './pages/admin/ManageFoodItems'
+import ManageMovieItems from './pages/admin/ManageMovieItems'
+import ManageSnackItems from './pages/admin/ManageSnackItems'
+import ManageStationeryItems from './pages/admin/ManageStationeryItems'
 
 const App = () => {
   return (
@@ -58,14 +59,14 @@ const App = () => {
           <Route path='/management' element={<Management />} />
           <Route path='/management/movie-bookings' element={<MovieBookings />} />
           <Route path='/management/salon-bookings' element={<SalonBookings />} />
-          <Route path='/management/fitness-center-bookings' element={<FitnessCenterBookings />} />
+          <Route path='/management/fitness-center-bookings' element={<FitnessCentreBookings />} />
           <Route path='/management/party-hall-bookings' element={<PartyHallBookings />} />
 
 
           // HEAD COOK ROUTES
           <Route path='/orders/catering' element={<CateringOrders />} />
           <Route path='/orders/catering/food' element={<FoodOrders />} />
-          <Route path='/orders/catering/snacks' element={<SnacksOrders />} />
+          <Route path='/orders/catering/snacks' element={<SnackOrders />} />
           <Route path='/orders/catering/beverages' element={<BeverageOrders />} />
 
 
@@ -75,12 +76,13 @@ const App = () => {
 
           // ADMIN ROUTES
           <Route path='/admin' element={<AdminDashboard />} />
-          <Route path='/admin/users' element={<AdminUsers />} />
-          <Route path='/admin/movies' element={<AdminMovies />} />
-          <Route path='/admin/catering' element={<AdminCatering />} />
-          <Route path='/admin/catering/food' element={<AdminFood />} />
-          <Route path='/admin/catering/snacks' element={<AdminSnacks />} />
-          <Route path='/admin/stationery' element={<AdminStationery />} />
+          <Route path='/admin/users/add' element={<AddUser />} />
+          <Route path='/admin/users/view' element={<ViewUser />} />
+          <Route path='/admin/movies' element={<ManageMovieItems />} />
+          <Route path='/admin/catering/food' element={<ManageFoodItems />} />
+          <Route path='/admin/catering/snacks' element={<ManageSnackItems />} />
+          <Route path='/admin/catering/beverages' element={<ManageBeverageItems />} />
+          <Route path='/admin/stationery' element={<ManageStationeryItems />} />
 
         </Route>
         <Route path='*' element={<NotFound />} />

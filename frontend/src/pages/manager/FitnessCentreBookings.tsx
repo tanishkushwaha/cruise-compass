@@ -2,19 +2,15 @@ import { Container, Heading, Table, TableContainer, Tbody, Td, Th, Thead, Tr } f
 import { useEffect, useState } from "react"
 
 
-const PartyHallBookings = () => {
+const FitnessCentreBookings = () => {
   type dataType = {
     customerName: string,
-    hallType: string,
-    occasion: string,
     date: string,
     timings: string,
   }
 
   const [data, setData] = useState<dataType[]>([{
     customerName: '',
-    hallType: '',
-    occasion: '',
     date: '',
     timings: '',
   }])
@@ -25,8 +21,6 @@ const PartyHallBookings = () => {
 
     setData([{
       customerName: 'John Doe',
-      hallType: 'Small',
-      occasion: 'Birthday',
       date: '14 May \'24',
       timings: '6:30pm',
     }])
@@ -36,7 +30,7 @@ const PartyHallBookings = () => {
 
   return (
     <Container maxW='5xl' p='5rem' letterSpacing={1}>
-      <Heading mb='3rem' as='h1'>Party Hall Bookings</Heading>
+      <Heading mb='3rem' as='h1'>Fitness Centre Bookings</Heading>
 
       <TableContainer>
         <Table variant='simple'>
@@ -44,8 +38,6 @@ const PartyHallBookings = () => {
             <Tr>
               <Th>S. No.</Th>
               <Th>Customer</Th>
-              <Th>Hall Type</Th>
-              <Th>Occastion</Th>
               <Th>Date</Th>
               <Th>Timings</Th>
             </Tr>
@@ -55,8 +47,6 @@ const PartyHallBookings = () => {
               <Tr>
                 <Td>{counter++}</Td>
                 <Td>{item.customerName}</Td>
-                <Td>{item.hallType}</Td>
-                <Td>{item.occasion}</Td>
                 <Td>{item.date}</Td>
                 <Td>{item.timings}</Td>
               </Tr>
@@ -68,4 +58,4 @@ const PartyHallBookings = () => {
   )
 }
 
-export default PartyHallBookings
+export default FitnessCentreBookings

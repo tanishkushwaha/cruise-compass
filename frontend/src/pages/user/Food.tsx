@@ -1,6 +1,6 @@
 import { Container, Heading, SimpleGrid } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import UserOrderCard from "../../components/UserOrderCard"
+import UserOrderCard from "../../components/OrderItemCard"
 
 
 const Food = () => {
