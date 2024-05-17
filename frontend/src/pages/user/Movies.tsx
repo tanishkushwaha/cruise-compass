@@ -5,14 +5,14 @@ import MovieCard from "../../components/MovieCard"
 
 const Movies = () => {
 
-  interface StationeryType {
+  type MovieType = {
     name: string,
     descr: string,
     imgUrl: string,
     price: string
   }
 
-  const [data, setData] = useState<StationeryType[]>([])
+  const [data, setData] = useState<MovieType[]>([])
 
   // Add useEffect to fetch data
   useEffect(() => {
