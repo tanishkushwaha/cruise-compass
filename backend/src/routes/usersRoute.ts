@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
     // Check for existing user
     const existingUser = await User.findOne({ email: data.email });
     if (existingUser) {
-      return res.status(401).send({ message: "Email already exists." });
+      return res.status(400).send({ message: "Email already exists." });
     }
 
     // Hash password
@@ -53,6 +53,26 @@ router.post("/", async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).send({ message: err });
+  }
+});
+
+router.get("/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+
+    const user = await User.findOne(
+      { email: email },
+      "-_id -createdAt -updatedAt -__v"
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err });
   }
 });
 

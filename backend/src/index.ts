@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import express, { Request, Response } from "express";
 import { config } from "dotenv";
 config();
-import registerRoute from "./routes/registerRoute";
+import usersRoute from "./routes/usersRoute";
 import foodRoute from "./routes/foodRoute";
 import snackRoute from "./routes/snackRoute";
 import beverageRoute from "./routes/beverageRoute";
@@ -19,7 +19,7 @@ app.use(
 );
 app.use(express.json());
 
-app.use("/api/users", registerRoute);
+app.use("/api/users", usersRoute);
 app.use("/api/food", foodRoute);
 app.use("/api/snacks", snackRoute);
 app.use("/api/beverages", beverageRoute);
