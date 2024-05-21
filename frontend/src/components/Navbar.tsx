@@ -9,15 +9,18 @@ import { BiSolidParty } from "react-icons/bi"
 import { Icon } from "@chakra-ui/react"
 import { Outlet } from "react-router-dom"
 import { NavLink } from "react-router-dom"
+import { useAuth } from "../context/authContext"
 
 const Navbar = () => {
+  const auth = useAuth()
+
   return (
     <>
       <Grid templateColumns='repeat(12, 1fr)' >
         <GridItem colSpan={2} bg='black' p={1}>
           <Flex justifyContent='center' alignItems='center' flexDirection='column' gap={3} mb='2rem'>
             <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' size='md' />
-            <Text fontSize='lg' letterSpacing={1} color='white' as='b'>Some Guy</Text>
+            <Text fontSize='lg' letterSpacing={1} color='white' as='b'>{`${auth.user.firstName} ${auth.user.lastName}`}</Text>
           </Flex>
 
           <Flex direction='column'>
