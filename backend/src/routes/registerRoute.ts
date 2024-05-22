@@ -1,7 +1,6 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/userModel";
-import { generate } from "generate-password";
 
 const router = express.Router();
 
@@ -10,7 +9,7 @@ type DataType = {
   lastName: string;
   phone: number;
   email: string;
-  role: string;
+  password: string;
 };
 
 router.post("/", async (req, res) => {
@@ -23,30 +22,28 @@ router.post("/", async (req, res) => {
       !data.lastName ||
       !data.phone ||
       !data.email ||
-      !data.role
+      !data.password
     ) {
       return res.status(400).send({
         message:
-          "Send all the required fields: firstName, lastName, phone, email, role",
+          "Send all the required fields: firstName, lastName, phone, email, password.",
       });
     }
 
     // Check for existing user
     const existingUser = await User.findOne({ email: data.email });
     if (existingUser) {
-      return res.status(400).send({ message: "Email already exists." });
+      return res.status(409).send({ message: "Email already exists." });
     }
 
     // Hash password
-    // const encPass = await bcrypt.hash(data.password, 10);
+    const encPass = await bcrypt.hash(data.password, 10);
 
     // Save into DB
     await User.create({
       ...data,
-      password: generate({
-        length: 8,
-        numbers: true,
-      }),
+      password: encPass,
+      role: "USER",
     });
 
     return res.status(200).send({ message: "User registered successfully!" });
@@ -56,24 +53,24 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:email", async (req, res) => {
-  try {
-    const { email } = req.params;
+// router.get("/:email", async (req, res) => {
+//   try {
+//     const { email } = req.params;
 
-    const user = await User.findOne(
-      { email: email },
-      "-_id -createdAt -updatedAt -__v"
-    );
+//     const user = await User.findOne(
+//       { email: email },
+//       "-_id -createdAt -updatedAt -__v"
+//     );
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found." });
+//     }
 
-    res.status(200).json(user);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ message: err });
-  }
-});
+//     res.status(200).json(user);
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).json({ message: err });
+//   }
+// });
 
 export default router;

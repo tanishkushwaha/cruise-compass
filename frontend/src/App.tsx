@@ -31,11 +31,15 @@ import ManageFoodItems from './pages/admin/ManageFoodItems'
 import ManageMovieItems from './pages/admin/ManageMovieItems'
 import ManageSnackItems from './pages/admin/ManageSnackItems'
 import ManageStationeryItems from './pages/admin/ManageStationeryItems'
+import Register from './pages/auth/Register'
 
 const App = () => {
   return (
     <>
       <Routes>
+
+        // AUTH
+        <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
         <Route path='/' element={<Navbar />}>
@@ -72,7 +76,6 @@ const App = () => {
 
           // SUPERVISOR ROUTES
           <Route path='/orders/stationery' element={<StationeryOrders />} />
-
 
           // ADMIN ROUTES
           <Route path='/admin' element={<AdminDashboard />} />
