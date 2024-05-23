@@ -32,8 +32,10 @@ import ManageMovieItems from './pages/admin/ManageMovieItems'
 import ManageSnackItems from './pages/admin/ManageSnackItems'
 import ManageStationeryItems from './pages/admin/ManageStationeryItems'
 import Register from './pages/auth/Register'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 const App = () => {
+
   return (
     <>
       <Routes>
@@ -42,52 +44,54 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
-        <Route path='/' element={<Navbar />}>
+        // USER ROUTES
+        <Route element={<ProtectedRoutes role='USER' />}>
+          <Route element={<Navbar />}>
+            <Route path='/' element={<Home />} />
+            <Route path='/order/catering' element={<Catering />} />
+            <Route path='/order/catering/food' element={<Food />} />
+            <Route path='/order/catering/snacks' element={<Snacks />} />
+            <Route path='/order/catering/beverages' element={<Beverages />} />
+            <Route path='/order/stationery' element={<Stationery />} />
 
-          // USER ROUTES
-          <Route path='/' element={<Home />} />
-          <Route path='/order/catering' element={<Catering />} />
-          <Route path='/order/catering/food' element={<Food />} />
-          <Route path='/order/catering/snacks' element={<Snacks />} />
-          <Route path='/order/catering/beverages' element={<Beverages />} />
-          <Route path='/order/stationery' element={<Stationery />} />
-
-          <Route path='/book' element={<Book />} />
-          <Route path='/book/movies' element={<Movies />} />
-          <Route path='/book/beauty-salon' element={<BeautySalon />} />
-          <Route path='/book/fitness-centre' element={<FitnessCenter />} />
-          <Route path='/book/party-hall' element={<PartyHall />} />
+            <Route path='/book' element={<Book />} />
+            <Route path='/book/movies' element={<Movies />} />
+            <Route path='/book/beauty-salon' element={<BeautySalon />} />
+            <Route path='/book/fitness-centre' element={<FitnessCenter />} />
+            <Route path='/book/party-hall' element={<PartyHall />} />
+          </Route>
+        </Route>
 
 
           // MANAGER ROUTES
-          <Route path='/management' element={<Management />} />
-          <Route path='/management/movie-bookings' element={<MovieBookings />} />
-          <Route path='/management/salon-bookings' element={<SalonBookings />} />
-          <Route path='/management/fitness-center-bookings' element={<FitnessCentreBookings />} />
-          <Route path='/management/party-hall-bookings' element={<PartyHallBookings />} />
+        <Route path='/management' element={<Management />} />
+        <Route path='/management/movie-bookings' element={<MovieBookings />} />
+        <Route path='/management/salon-bookings' element={<SalonBookings />} />
+        <Route path='/management/fitness-center-bookings' element={<FitnessCentreBookings />} />
+        <Route path='/management/party-hall-bookings' element={<PartyHallBookings />} />
 
 
           // HEAD COOK ROUTES
-          <Route path='/orders/catering' element={<CateringOrders />} />
-          <Route path='/orders/catering/food' element={<FoodOrders />} />
-          <Route path='/orders/catering/snacks' element={<SnackOrders />} />
-          <Route path='/orders/catering/beverages' element={<BeverageOrders />} />
+        <Route path='/orders/catering' element={<CateringOrders />} />
+        <Route path='/orders/catering/food' element={<FoodOrders />} />
+        <Route path='/orders/catering/snacks' element={<SnackOrders />} />
+        <Route path='/orders/catering/beverages' element={<BeverageOrders />} />
 
 
           // SUPERVISOR ROUTES
-          <Route path='/orders/stationery' element={<StationeryOrders />} />
+        <Route path='/orders/stationery' element={<StationeryOrders />} />
 
           // ADMIN ROUTES
-          <Route path='/admin' element={<AdminDashboard />} />
-          <Route path='/admin/users/add' element={<AddUser />} />
-          <Route path='/admin/users/view' element={<ViewUser />} />
-          <Route path='/admin/movies' element={<ManageMovieItems />} />
-          <Route path='/admin/catering/food' element={<ManageFoodItems />} />
-          <Route path='/admin/catering/snacks' element={<ManageSnackItems />} />
-          <Route path='/admin/catering/beverages' element={<ManageBeverageItems />} />
-          <Route path='/admin/stationery' element={<ManageStationeryItems />} />
+        <Route path='/admin' element={<AdminDashboard />} />
+        <Route path='/admin/users/add' element={<AddUser />} />
+        <Route path='/admin/users/view' element={<ViewUser />} />
+        <Route path='/admin/movies' element={<ManageMovieItems />} />
+        <Route path='/admin/catering/food' element={<ManageFoodItems />} />
+        <Route path='/admin/catering/snacks' element={<ManageSnackItems />} />
+        <Route path='/admin/catering/beverages' element={<ManageBeverageItems />} />
+        <Route path='/admin/stationery' element={<ManageStationeryItems />} />
 
-        </Route>
+
         <Route path='*' element={<NotFound />} />
       </Routes>
 
