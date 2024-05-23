@@ -1,15 +1,17 @@
-import { useState, createContext, useContext, Dispatch, SetStateAction } from "react";
+import { useState, createContext, useContext, useEffect } from "react";
+import axios from "../utils/axiosInstance";
 
 type User = {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  role: string;
 };
 
 type AuthContextType = {
   user: User;
-  setUser: Dispatch<SetStateAction<User>>;
+  loading: boolean;
 };
 
 const defaultUser: User = {
@@ -17,19 +19,31 @@ const defaultUser: User = {
   lastName: '',
   email: '',
   phone: '',
+  role: '',
 };
 
 const AuthContext = createContext<AuthContextType>({
   user: defaultUser,
-  setUser: () => { }
+  loading: true,
 })
 
 export const AuthProvider = ({ children }: any) => {
 
   const [user, setUser] = useState(defaultUser)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true)
+    axios.get('/api/user')
+      .then(res => {
+        setUser(res.data.user)
+      })
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false))
+  }, [])
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, loading }}>
       {children}
     </ AuthContext.Provider>
   )

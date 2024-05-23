@@ -4,12 +4,10 @@ import CruiseImage from '../../assets/login.jpg'
 import FormInput from '../../components/FormInput'
 import axios from '../../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/authContext'
 
 const Login = () => {
   const toast = useToast()
   const navigate = useNavigate()
-  const auth = useAuth()
 
   // State for storing the form data
   const [data, setData] = useState({
@@ -58,7 +56,7 @@ const Login = () => {
         "Content-Type": "application/json"
       }
     })
-      .then((res) => {
+      .then(() => {
         toast({
           title: 'User logged in successfully.',
           status: 'success',
@@ -66,9 +64,6 @@ const Login = () => {
           isClosable: true,
           position: 'top-right'
         })
-
-        auth.setUser(res.data.user)
-
         navigate('/')
       })
       .catch(err => {
