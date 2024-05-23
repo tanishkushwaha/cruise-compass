@@ -2,13 +2,16 @@ import mongoose from "mongoose";
 import express, { Request, Response } from "express";
 import { config } from "dotenv";
 config();
+import cors from "cors";
+import cookieParser from "cookie-parser";
+
 import registerRoute from "./routes/registerRoute";
 import foodRoute from "./routes/foodRoute";
 import snackRoute from "./routes/snackRoute";
 import beverageRoute from "./routes/beverageRoute";
 import stationeryRoute from "./routes/stationeryRoute";
-import cors from "cors";
 import loginRoute from "./routes/loginRoute";
+import auth from "./middleware/auth";
 
 const app = express();
 
@@ -19,6 +22,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/login", loginRoute);
 app.use("/api/register", registerRoute);
@@ -29,6 +33,14 @@ app.use("/api/stationery", stationeryRoute);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello from Cruise Compass API");
+});
+
+type ExtendedRequest = Request & {
+  user?: any;
+};
+
+app.get("/api/user", auth, (req: ExtendedRequest, res: Response) => {
+  res.status(200).json({ message: "success", user: req.user });
 });
 
 mongoose
