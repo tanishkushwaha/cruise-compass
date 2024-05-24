@@ -12,14 +12,15 @@ type Props = {
   errorMessage?: string;
   isRequired?: boolean;
   style?: CSSProperties,
-  accept?: string
+  accept?: string,
+  disabled?: boolean,
 }
 
-const FormInput = ({ label, name, type = 'text', value, placeholder, onChange, error = false, errorMessage = 'This field is required.', isRequired = false, style, accept }: Props) => {
+const FormInput = ({ label, name, type = 'text', value, placeholder, onChange, error = false, errorMessage = 'This field is required.', isRequired = false, style, accept, disabled }: Props) => {
   return (
     <FormControl isInvalid={error} isRequired={isRequired}>
       <FormLabel>{label}</FormLabel>
-      <Input type={type} name={name} value={value} placeholder={placeholder} onChange={onChange} accept={accept} style={style} />
+      <Input type={type} name={name} value={value} placeholder={placeholder} onChange={onChange} accept={accept} style={style} disabled={disabled} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>
   )
