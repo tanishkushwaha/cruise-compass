@@ -1,11 +1,5 @@
 import { Avatar, Flex, Grid, GridItem, Text } from "@chakra-ui/react"
 import { IoMdHome } from "react-icons/io"
-import { BiSolidDish } from "react-icons/bi"
-import { FaPenAlt } from "react-icons/fa"
-import { BiSolidMoviePlay } from "react-icons/bi"
-import { GiLipstick } from "react-icons/gi"
-import { FaDumbbell } from "react-icons/fa6"
-import { BiSolidParty } from "react-icons/bi"
 import { FaClipboardList } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
@@ -44,12 +38,6 @@ const Navbar = () => {
 
             ) : null
             }
-            {/* <NavItem title='Catering' icon={<Icon as={BiSolidDish} color='white' />} path='/order/catering' />
-            <NavItem title='Stationery' path='/order/stationery' icon={<Icon as={FaPenAlt} color='white' />} />
-            <NavItem title='Movies' path='/book/movies' icon={<Icon as={BiSolidMoviePlay} color='white' />} />
-            <NavItem title='Beauty Salon' path='/book/beauty-salon' icon={<Icon as={GiLipstick} color='white' />} />
-            <NavItem title='Fitness Centre' path='/book/fitness-centre' icon={<Icon as={FaDumbbell} color='white' />} />
-            <NavItem title='Party Hall' path='/book/party-hall' icon={<Icon as={BiSolidParty} color='white' />} /> */}
           </Flex>
         </GridItem>
         <GridItem colSpan={10} overflow='auto' h='100vh'>
