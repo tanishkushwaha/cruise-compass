@@ -33,6 +33,7 @@ import ManageSnackItems from './pages/admin/ManageSnackItems'
 import ManageStationeryItems from './pages/admin/ManageStationeryItems'
 import Register from './pages/auth/Register'
 import ProtectedRoutes from './components/ProtectedRoutes'
+import Account from './pages/user/Account'
 
 const App = () => {
 
@@ -63,34 +64,54 @@ const App = () => {
         </Route>
 
 
-          // MANAGER ROUTES
-        <Route path='/management' element={<Management />} />
-        <Route path='/management/movie-bookings' element={<MovieBookings />} />
-        <Route path='/management/salon-bookings' element={<SalonBookings />} />
-        <Route path='/management/fitness-center-bookings' element={<FitnessCentreBookings />} />
-        <Route path='/management/party-hall-bookings' element={<PartyHallBookings />} />
+        // MANAGER ROUTES
+        <Route element={<ProtectedRoutes role='MANAGER' />}>
+          <Route element={<Navbar />}>
+            <Route path='/management' element={<Management />} />
+            <Route path='/management/movie-bookings' element={<MovieBookings />} />
+            <Route path='/management/salon-bookings' element={<SalonBookings />} />
+            <Route path='/management/fitness-center-bookings' element={<FitnessCentreBookings />} />
+            <Route path='/management/party-hall-bookings' element={<PartyHallBookings />} />
+          </Route>
+        </Route>
 
 
-          // HEAD COOK ROUTES
-        <Route path='/orders/catering' element={<CateringOrders />} />
-        <Route path='/orders/catering/food' element={<FoodOrders />} />
-        <Route path='/orders/catering/snacks' element={<SnackOrders />} />
-        <Route path='/orders/catering/beverages' element={<BeverageOrders />} />
+        // HEAD COOK ROUTES
+        <Route element={<ProtectedRoutes role='HEAD_COOK' />}>
+          <Route element={<Navbar />}>
+            <Route path='/orders/catering' element={<CateringOrders />} />
+            <Route path='/orders/catering/food' element={<FoodOrders />} />
+            <Route path='/orders/catering/snacks' element={<SnackOrders />} />
+            <Route path='/orders/catering/beverages' element={<BeverageOrders />} />
+          </Route>
+        </Route>
 
 
-          // SUPERVISOR ROUTES
-        <Route path='/orders/stationery' element={<StationeryOrders />} />
+        // SUPERVISOR ROUTES
+        <Route element={<ProtectedRoutes role='SUPERVISOR' />}>
+          <Route element={<Navbar />}>
+            <Route path='/orders/stationery' element={<StationeryOrders />} />
+          </Route>
+        </Route>
 
-          // ADMIN ROUTES
-        <Route path='/admin' element={<AdminDashboard />} />
-        <Route path='/admin/users/add' element={<AddUser />} />
-        <Route path='/admin/users/view' element={<ViewUser />} />
-        <Route path='/admin/movies' element={<ManageMovieItems />} />
-        <Route path='/admin/catering/food' element={<ManageFoodItems />} />
-        <Route path='/admin/catering/snacks' element={<ManageSnackItems />} />
-        <Route path='/admin/catering/beverages' element={<ManageBeverageItems />} />
-        <Route path='/admin/stationery' element={<ManageStationeryItems />} />
+        // ADMIN ROUTES
+        <Route element={<ProtectedRoutes role='ADMIN' />}>
+          <Route element={<Navbar />}>
+            <Route path='/admin' element={<AdminDashboard />} />
+            <Route path='/admin/users/add' element={<AddUser />} />
+            <Route path='/admin/users/view' element={<ViewUser />} />
+            <Route path='/admin/movies' element={<ManageMovieItems />} />
+            <Route path='/admin/catering/food' element={<ManageFoodItems />} />
+            <Route path='/admin/catering/snacks' element={<ManageSnackItems />} />
+            <Route path='/admin/catering/beverages' element={<ManageBeverageItems />} />
+            <Route path='/admin/stationery' element={<ManageStationeryItems />} />
+          </Route>
+        </Route>
 
+        // ACCOUNT
+        <Route element={<Navbar />}>
+          <Route path='/account' element={<Account />}></Route>
+        </Route>
 
         <Route path='*' element={<NotFound />} />
       </Routes>

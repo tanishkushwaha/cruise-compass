@@ -6,6 +6,11 @@ import { BiSolidMoviePlay } from "react-icons/bi"
 import { GiLipstick } from "react-icons/gi"
 import { FaDumbbell } from "react-icons/fa6"
 import { BiSolidParty } from "react-icons/bi"
+import { FaClipboardList } from "react-icons/fa";
+import { MdManageAccounts } from "react-icons/md";
+import { RiAdminFill } from "react-icons/ri";
+import { FaCog } from "react-icons/fa";
+
 import { Icon } from "@chakra-ui/react"
 import { Outlet } from "react-router-dom"
 import { NavLink } from "react-router-dom"
@@ -25,12 +30,26 @@ const Navbar = () => {
 
           <Flex direction='column'>
             <NavItem title='Home' icon={<Icon as={IoMdHome} color='white' />} path='/' />
-            <NavItem title='Catering' icon={<Icon as={BiSolidDish} color='white' />} path='/order/catering' />
+            <NavItem title='Account' icon={<Icon as={FaCog} color='white' />} path='/account' />
+            {auth.user.role === 'MANAGER' ? (
+              <NavItem title='Management' icon={<Icon as={MdManageAccounts} color='white' />} path='/management' />
+            ) : auth.user.role === 'HEAD_COOK' ? (
+              <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' />} path='/orders/catering' />
+
+            ) : auth.user.role === 'SUPERVISOR' ? (
+              <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' />} path='/orders/stationery' />
+
+            ) : auth.user.role === 'ADMIN' ? (
+              <NavItem title='Admin' icon={<Icon as={RiAdminFill} color='white' />} path='/admin' />
+
+            ) : null
+            }
+            {/* <NavItem title='Catering' icon={<Icon as={BiSolidDish} color='white' />} path='/order/catering' />
             <NavItem title='Stationery' path='/order/stationery' icon={<Icon as={FaPenAlt} color='white' />} />
             <NavItem title='Movies' path='/book/movies' icon={<Icon as={BiSolidMoviePlay} color='white' />} />
             <NavItem title='Beauty Salon' path='/book/beauty-salon' icon={<Icon as={GiLipstick} color='white' />} />
             <NavItem title='Fitness Centre' path='/book/fitness-centre' icon={<Icon as={FaDumbbell} color='white' />} />
-            <NavItem title='Party Hall' path='/book/party-hall' icon={<Icon as={BiSolidParty} color='white' />} />
+            <NavItem title='Party Hall' path='/book/party-hall' icon={<Icon as={BiSolidParty} color='white' />} /> */}
           </Flex>
         </GridItem>
         <GridItem colSpan={10} overflow='auto' h='100vh'>

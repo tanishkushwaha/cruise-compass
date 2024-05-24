@@ -6,6 +6,9 @@ import Forbidden from "../pages/others/Forbidden";
 const ProtectedRoutes = ({ role }: { role: string }) => {
   const auth = useAuth()
 
+  console.log(auth.user);
+
+
   if (auth.loading) return <SpinnerScreen />
 
   if (!auth.user.role) return <Navigate to='/login' />
