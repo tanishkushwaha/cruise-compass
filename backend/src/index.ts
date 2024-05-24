@@ -12,6 +12,7 @@ import beverageRoute from "./routes/beverageRoute";
 import stationeryRoute from "./routes/stationeryRoute";
 import loginRoute from "./routes/loginRoute";
 import auth from "./middleware/auth";
+import logoutRoute from "./routes/logoutRoute";
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/login", loginRoute);
+app.use("/api/logout", logoutRoute);
 app.use("/api/register", registerRoute);
 app.use("/api/food", foodRoute);
 app.use("/api/snacks", snackRoute);
