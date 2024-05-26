@@ -8,7 +8,7 @@ import { FaCog } from "react-icons/fa";
 import { Icon } from "@chakra-ui/react"
 import { Outlet } from "react-router-dom"
 import { NavLink } from "react-router-dom"
-import { useAuth } from "../context/authContext"
+import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
   const auth = useAuth()

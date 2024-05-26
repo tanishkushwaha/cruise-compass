@@ -1,6 +1,6 @@
 import { Avatar, Container, Flex, Heading } from "@chakra-ui/react"
 import FormInput from "../../components/FormInput"
-import { useAuth } from "../../context/authContext"
+import useAuth from "../../hooks/useAuth"
 
 
 const Account = () => {
