@@ -9,6 +9,8 @@ import { Icon } from "@chakra-ui/react"
 import { Outlet } from "react-router-dom"
 import { NavLink } from "react-router-dom"
 import useAuth from "../hooks/useAuth";
+import { CSSProperties } from "react";
+import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const auth = useAuth()
@@ -33,11 +35,13 @@ const Navbar = () => {
             ) : auth.user.role === 'SUPERVISOR' ? (
               <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' />} path='/orders/stationery' />
 
-            ) : auth.user.role === 'ADMIN' ? (
+            ) : (auth.user.role === 'ADMIN') ? (
               <NavItem title='Admin' icon={<Icon as={RiAdminFill} color='white' />} path='/admin' />
 
             ) : null
             }
+            <NavItem title='Logout' icon={<Icon as={FiLogOut} color='white' />} path='/logout' style={{ marginTop: '3rem' }} />
+
           </Flex>
         </GridItem>
         <GridItem colSpan={10} overflow='auto' h='100vh'>
@@ -48,10 +52,10 @@ const Navbar = () => {
   )
 }
 
-const NavItem = ({ title, path, icon }: { title: string, path: string, icon: any }) => {
+const NavItem = ({ title, path, icon, style }: { title: string, path: string, icon: any, style?: CSSProperties }) => {
   return (
 
-    <NavLink to={path} className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
+    <NavLink style={style} to={path} className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
 
       {({ isActive }) => (
         <Flex h='30px' px='1rem' py='2rem' gap={2} alignItems='center' borderRadius={8} _hover={{ bgColor: 'gray.900' }} cursor='pointer' bgColor={isActive ? 'gray.900' : ''}>

@@ -5,6 +5,7 @@ import NotFound from './pages/others/NotFound'
 import Register from './pages/auth/Register'
 import ProtectedRoute from './rbac/ProtectedRoute'
 import routes from './routes'
+import Logout from './pages/auth/Logout'
 
 const App = () => {
 
@@ -15,6 +16,7 @@ const App = () => {
         // AUTH
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/logout' element={<Logout />} />
 
         <Route element={<Navbar />}>
           {routes.map((route, index) => (
