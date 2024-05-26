@@ -26,7 +26,6 @@ const useAuth = () => {
     axios.get('/api/user')
       .then(res => {
         setUser({ ...res.data.user, loggedIn: true })
-        console.log('AuthContext:', res.data.user);
 
       })
       .catch(err => console.log(err))

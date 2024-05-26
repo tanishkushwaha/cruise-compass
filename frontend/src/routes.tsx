@@ -1,5 +1,6 @@
 import AddUser from "./pages/admin/AddUser"
 import AdminDashboard from "./pages/admin/AdminDashboard"
+import EditUser from "./pages/admin/EditUser"
 import ManageBeverageItems from "./pages/admin/ManageBeverageItems"
 import ManageFoodItems from "./pages/admin/ManageFoodItems"
 import ManageMovieItems from "./pages/admin/ManageMovieItems"
@@ -48,23 +49,28 @@ const routes: RouteType[] = [
   { path: '/book/beauty-salon', element: <BeautySalon />, roles: ['USER'] },
   { path: '/book/fitness-centre', element: <FitnessCenter />, roles: ['USER'] },
   { path: '/book/party-hall', element: <PartyHall />, roles: ['USER'] },
+
   // Manager routes
   { path: '/management', element: <Management />, roles: ['MANAGER'] },
   { path: '/management/movie-bookings', element: <MovieBookings />, roles: ['MANAGER'] },
   { path: '/management/salon-bookings', element: <SalonBookings />, roles: ['MANAGER'] },
   { path: '/management/fitness-center-bookings', element: <FitnessCentreBookings />, roles: ['MANAGER'] },
   { path: '/management/party-hall-bookings', element: <PartyHallBookings />, roles: ['MANAGER'] },
+
   // Head cook routes
   { path: '/orders/catering', element: <CateringOrders />, roles: ['HEAD_COOK'] },
   { path: '/orders/catering/food', element: <CateringOrders />, roles: ['HEAD_COOK'] },
   { path: '/orders/catering/snacks', element: <SnackOrders />, roles: ['HEAD_COOK'] },
   { path: '/orders/catering/beverages', element: <BeverageOrders />, roles: ['HEAD_COOK'] },
+
   // Supervisor routes
   { path: '/orders/stationery', element: <StationeryOrders />, roles: ['SUPERVISOR'] },
+
   // Admin routes
   { path: '/admin', element: <AdminDashboard />, roles: ['ADMIN'] },
   { path: '/admin/users/add', element: <AddUser />, roles: ['ADMIN'] },
   { path: '/admin/users/view', element: <ViewUser />, roles: ['ADMIN'] },
+  { path: '/admin/users/edit/:id', element: <EditUser />, roles: ['ADMIN'] },
   { path: '/admin/movies', element: <ManageMovieItems />, roles: ['ADMIN'] },
   { path: '/admin/catering/food', element: <ManageFoodItems />, roles: ['ADMIN'] },
   { path: '/admin/catering/snacks', element: <ManageSnackItems />, roles: ['ADMIN'] },
