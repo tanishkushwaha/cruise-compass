@@ -1,19 +1,21 @@
-import { Button, Container, Heading, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from "@chakra-ui/react"
+import { Button, Container, Flex, Heading, IconButton, Stack, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useToast } from "@chakra-ui/react"
 import FormInput from "../../components/FormInput"
 import { useState } from "react"
 import axios from "../../utils/axiosInstance"
+import { MdDelete, MdEdit } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+
 
 const ViewUser = () => {
   const toast = useToast()
-
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
-
   const [user, setUser] = useState({
+    _id: '',
     firstName: '',
     lastName: '',
     phone: '',
     email: '',
-    password: '',
     role: ''
   })
 
@@ -32,9 +34,10 @@ const ViewUser = () => {
 
     // Get user data from the backend
 
-    axios.get(`/api/users/${email}`)
+    axios.get(`/api/users/email/${email}`)
       .then(res => {
         setUser(res.data)
+        console.log('Response:', res.data)
       })
       .catch(err => {
         console.log(err);
@@ -46,6 +49,11 @@ const ViewUser = () => {
           position: 'top-right'
         })
       })
+  }
+
+  const handleEditButton = () => {
+    console.log('User:', user)
+    navigate(`/admin/users/edit/${user._id}`)
   }
 
   return (
@@ -63,8 +71,8 @@ const ViewUser = () => {
               <Th>Last Name</Th>
               <Th>Phone</Th>
               <Th>Email</Th>
-              <Th>Password</Th>
               <Th>Role</Th>
+              <Th>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -73,8 +81,13 @@ const ViewUser = () => {
               <Td>{user.lastName}</Td>
               <Td>{user.phone}</Td>
               <Td>{user.email}</Td>
-              <Td>{user.password}</Td>
               <Td>{user.role}</Td>
+              <Td>
+                {user.firstName && <Flex gap={4}>
+                  <IconButton aria-label="editUser" icon={<MdEdit />} onClick={handleEditButton} />
+                  <IconButton aria-label="deleteUser" icon={<MdDelete />} />
+                </Flex>}
+              </Td>
             </Tr>
           </Tbody>
         </Table>

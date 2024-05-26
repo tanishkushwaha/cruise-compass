@@ -13,6 +13,25 @@ type DataType = {
   role?: string;
 };
 
+router.get("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(
+      id,
+      "-createdAt -updatedAt -__v -password"
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: err });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const data: DataType = req.body;
@@ -54,13 +73,13 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:email", async (req, res) => {
+router.get("/email/:email", async (req, res) => {
   try {
     const { email } = req.params;
 
     const user = await User.findOne(
       { email: email },
-      "-_id -createdAt -updatedAt -__v"
+      "-createdAt -updatedAt -__v -password"
     );
 
     if (!user) {
@@ -74,8 +93,10 @@ router.get("/:email", async (req, res) => {
   }
 });
 
-router.put("/:email", async (req: Request, res: Response) => {
+router.put("/:id", async (req: Request, res: Response) => {
   try {
+    const { id } = req.params;
+
     const data: DataType = req.body;
 
     if (
@@ -91,13 +112,15 @@ router.put("/:email", async (req: Request, res: Response) => {
       });
     }
 
-    const user = await User.findOneAndUpdate({ email: req.params.email }, data);
+    const user = await User.findByIdAndUpdate(id, data);
 
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }
 
-    return res.status(200).json({ message: "User updated successfully." });
+    user.password = "";
+
+    return res.status(200).json(user);
   } catch (err) {
     if (err instanceof Error) {
       console.log(err);

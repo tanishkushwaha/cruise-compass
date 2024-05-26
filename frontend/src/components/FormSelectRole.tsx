@@ -5,13 +5,14 @@ type Props = {
   error?: boolean;
   errorMessage?: string;
   isRequired?: boolean;
+  value?: string;
 }
 
-const FormSelectRole = ({ onChange, error = false, errorMessage = 'Select an option.', isRequired = false }: Props) => {
+const FormSelectRole = ({ onChange, error = false, errorMessage = 'Select an option.', isRequired = false, value }: Props) => {
   return (
     <FormControl isInvalid={error} isRequired={isRequired}>
       <FormLabel>Select Role</FormLabel>
-      <Select placeholder='Choose an option' onChange={onChange}>
+      <Select onChange={onChange} value={value}>
         <option value='USER'>User</option>
         <option value='MANAGER'>Manager</option>
         <option value='SUPERVISOR'>Supervisor</option>
