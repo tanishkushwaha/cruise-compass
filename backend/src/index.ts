@@ -5,7 +5,7 @@ config();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import registerRoute from "./routes/registerRoute";
+import userRoute from "./routes/userRoute";
 import foodRoute from "./routes/foodRoute";
 import snackRoute from "./routes/snackRoute";
 import beverageRoute from "./routes/beverageRoute";
@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 app.use("/api/login", loginRoute);
 app.use("/api/logout", logoutRoute);
-app.use("/api/register", registerRoute);
+app.use("/api/users", userRoute);
 app.use("/api/food", foodRoute);
 app.use("/api/snacks", snackRoute);
 app.use("/api/beverages", beverageRoute);
