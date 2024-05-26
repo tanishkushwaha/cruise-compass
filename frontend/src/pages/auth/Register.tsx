@@ -1,9 +1,9 @@
-import { Box, Flex, Grid, GridItem, Heading, Image, Button, useToast } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Heading, Image, Button, useToast, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import CruiseImage from '../../assets/login.jpg'
 import FormInput from '../../components/FormInput'
 import axios from '../../utils/axiosInstance'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const toast = useToast()
@@ -45,7 +45,6 @@ const Register = () => {
   }
 
   const submitForm = () => {
-
     let invalidForm = false
 
     // ID validaton
@@ -66,7 +65,7 @@ const Register = () => {
 
 
     // Send the data to the backend and get the auth token
-    axios.post('/api/register', data, {
+    axios.post('/api/users', data, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -124,6 +123,9 @@ const Register = () => {
                 <FormInput label='Email' name='email' type='email' value={data.email} onChange={handleChange} error={errors.email} />
                 <FormInput label='Password' name='password' type='password' value={data.password} onChange={handleChange} error={errors.password} />
                 <Button w='6rem' mt='0.5rem' colorScheme='blue' letterSpacing={1} onClick={submitForm}>Submit</Button>
+                <Flex justifyContent='end'>
+                  <Link to='/login'><Text as='u' color='blue.800'>Already have an account?</Text></Link>
+                </Flex>
               </Flex>
             </GridItem>
           </Grid>

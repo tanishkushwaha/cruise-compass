@@ -1,9 +1,9 @@
-import { Box, Flex, Grid, GridItem, Heading, Image, Button, useToast } from '@chakra-ui/react'
+import { Box, Flex, Grid, GridItem, Heading, Image, Button, useToast, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import CruiseImage from '../../assets/login.jpg'
 import FormInput from '../../components/FormInput'
 import axios from '../../utils/axiosInstance'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const toast = useToast()
@@ -92,6 +92,9 @@ const Login = () => {
                 <FormInput label='Email' name='email' type='text' value={data.email} onChange={handleChange} error={errors.email} />
                 <FormInput label='Password' name='password' type='password' value={data.password} onChange={handleChange} error={errors.password} />
                 <Button w='6rem' mt='0.5rem' colorScheme='blue' letterSpacing={1} onClick={submitForm}>Submit</Button>
+                <Flex justifyContent='end'>
+                  <Link to='/register'><Text as='u' color='blue.800'>Don't have account?</Text></Link>
+                </Flex>
               </Flex>
             </GridItem>
           </Grid>
