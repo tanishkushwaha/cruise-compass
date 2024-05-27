@@ -10,6 +10,17 @@ type DataType = {
   imgURL: string;
 };
 
+router.get("/", async (req, res) => {
+  try {
+    const foods = await Food.find({});
+
+    return res.status(200).send(foods);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ message: err });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const data: DataType = req.body;
@@ -17,7 +28,8 @@ router.post("/", async (req, res) => {
     // Validate data
     if (!data.name || !data.description || !data.price || !data.imgURL) {
       return res.status(400).send({
-        message: "Send all the required fields: name, description, price.",
+        message:
+          "Send all the required fields: name, description, price, imgURL.",
       });
     }
 
