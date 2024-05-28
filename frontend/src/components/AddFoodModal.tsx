@@ -1,67 +1,88 @@
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Stack } from "@chakra-ui/react"
 import FormInput from "./FormInput"
-import { useState } from "react"
+import { ChangeEvent, useState } from "react"
+import axios from "../utils/axiosInstance"
 
 type PropsType = {
   isOpen: boolean,
   onClose: () => void
 }
 
-type DataType = {
-  foodName: string,
-  descr: string,
-  price: string,
+type InputDataType = {
+  name: string,
+  description: string,
+  price: string
 }
 
 
 const AddFoodModal = ({ isOpen, onClose }: PropsType) => {
 
-  const [data, setData] = useState<DataType>({
-    foodName: '',
-    descr: '',
-    price: ''
+  const [inputData, setInputData] = useState<InputDataType>({
+    name: '',
+    description: '',
+    price: '',
   })
 
+  const [imgFile, setImageFile] = useState<File | null>(null)
+
+
   const resetData = () => {
-    setData({
-      foodName: '',
-      descr: '',
-      price: ''
+    setInputData({
+      name: '',
+      description: '',
+      price: '',
     })
+    setImageFile(null)
   }
 
   const [inputErrors, setInputErrors] = useState({
-    foodName: false,
-    descr: false,
-    price: false
+    name: false,
+    description: false,
+    price: false,
+    imgFile: false,
   })
 
   const resetErrors = () => {
     setInputErrors({
-      foodName: false,
-      descr: false,
-      price: false
+      name: false,
+      description: false,
+      price: false,
+      imgFile: false
     })
   }
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     resetErrors()
 
     const { name, value } = e.target
-    setData(prevData => ({
+    setInputData(prevData => ({
       ...prevData,
       [name]: value
     }))
   }
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    resetErrors()
+    setImageFile(e.target.files![0])
+  }
+
   const handleSubmit = () => {
     let formValid = true
 
-    for (const field in data) {
-      if (!data[field as keyof DataType]) {
+    for (const field in inputData) {
+      if (!inputData[field as keyof InputDataType]) {
         setInputErrors(prevStates => ({
           ...prevStates,
           [field]: true
+        }))
+
+        formValid = false
+      }
+
+      if (!imgFile) {
+        setInputErrors(prevStates => ({
+          ...prevStates,
+          imgFile: true
         }))
 
         formValid = false
@@ -70,9 +91,30 @@ const AddFoodModal = ({ isOpen, onClose }: PropsType) => {
 
     if (!formValid) return
 
-    // Send the data to the backend
+    // Send the inputData to the backend
 
-    console.log(data);
+    const formData = new FormData()
+    formData.append('name', inputData.name)
+    formData.append('description', inputData.description)
+    formData.append('price', inputData.price)
+    formData.append('imgFile', imgFile!)
+
+    console.log(formData)
+    console.log(imgFile)
+
+    axios.post('/api/foods', formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    })
+      .then(res => {
+        console.log(res.data)
+
+      })
+      .catch(err => {
+        console.log(err)
+
+      })
 
   }
 
@@ -89,10 +131,10 @@ const AddFoodModal = ({ isOpen, onClose }: PropsType) => {
         <ModalCloseButton />
         <ModalBody>
           <Stack direction='column' gap={5}>
-            <FormInput label="Enter Food Name" name="foodName" value={data.foodName} onChange={handleChange} error={inputErrors.foodName} />
-            <FormInput label="Enter Description" name="descr" value={data.descr} onChange={handleChange} error={inputErrors.descr} />
-            <FormInput label="Enter Price" name="price" value={data.price} onChange={handleChange} error={inputErrors.price} />
-            <FormInput type="file" accept="image/png, image/jpeg" label="Upload Picture" name="picture" />
+            <FormInput label="Enter Food Name" name="name" value={inputData.name} onChange={handleChange} error={inputErrors.name} />
+            <FormInput label="Enter Description" name="description" value={inputData.description} onChange={handleChange} error={inputErrors.description} />
+            <FormInput label="Enter Price" name="price" value={inputData.price} onChange={handleChange} error={inputErrors.price} />
+            <FormInput type="file" accept="image/png, image/jpeg" label="Upload Picture" name="image" onChange={handleFileChange} error={inputErrors.imgFile} />
           </Stack>
         </ModalBody>
 

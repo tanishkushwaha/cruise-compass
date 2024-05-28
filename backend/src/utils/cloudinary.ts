@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -6,10 +6,14 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const uploadImage = async (localFilePath: string) => {
+const uploadImageToCloudinary = async (
+  localFilePath: string,
+  folder: string
+) => {
   try {
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
+      folder,
     });
 
     return response;
@@ -19,4 +23,4 @@ const uploadImage = async (localFilePath: string) => {
   }
 };
 
-export { uploadImage };
+export { uploadImageToCloudinary };
