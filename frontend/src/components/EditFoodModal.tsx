@@ -6,37 +6,29 @@ import axios from "../utils/axiosInstance"
 type PropsType = {
   isOpen: boolean;
   onClose: () => void;
+  id: string;
   setUpdate?: Dispatch<React.SetStateAction<boolean>>;
+  name: string;
+  description: string;
+  price: string;
 }
 
 type InputDataType = {
   name: string,
   description: string,
-  price: string,
+  price: string
 }
 
 
-const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
+const EditFoodModal = ({ isOpen, onClose, id, setUpdate, name, description, price }: PropsType) => {
   const toast = useToast()
   const [loading, setLoading] = useState(false)
-
   const [inputData, setInputData] = useState<InputDataType>({
-    name: '',
-    description: '',
-    price: '',
+    name,
+    description,
+    price,
   })
-
   const [imgFile, setImageFile] = useState<File | null>(null)
-
-
-  const resetData = () => {
-    setInputData({
-      name: '',
-      description: '',
-      price: '',
-    })
-    setImageFile(null)
-  }
 
   const [inputErrors, setInputErrors] = useState({
     name: false,
@@ -95,7 +87,6 @@ const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
     if (!formValid) return
 
     // Send the inputData to the backend
-
     const formData = new FormData()
     formData.append('name', inputData.name)
     formData.append('description', inputData.description)
@@ -106,14 +97,14 @@ const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
     console.log(imgFile)
 
     setLoading(true)
-    axios.post('/api/foods', formData, {
+    axios.put(`/api/foods/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
     })
       .then(res => {
         toast({
-          title: 'Food item added successfully!',
+          title: 'Food item updated successfully!',
           status: 'success',
           duration: 5000,
           isClosable: true,
@@ -123,7 +114,7 @@ const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
       })
       .catch(err => {
         toast({
-          title: 'Error adding food item',
+          title: 'Error updating food item',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -136,19 +127,17 @@ const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
         setUpdate!(true)
         setLoading(false)
       })
-
   }
 
   const handleModalClose = () => {
     onClose()
-    resetData()
   }
 
   return (
     <Modal isOpen={isOpen} onClose={handleModalClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add Food</ModalHeader>
+        <ModalHeader>Edit Food</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack direction='column' gap={5}>
@@ -159,13 +148,12 @@ const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={handleSubmit} isLoading={loading}>Add</Button>
+          <Button colorScheme='blue' mr={3} onClick={handleSubmit} isLoading={loading}>Update</Button>
           <Button variant='outline' colorScheme='blue' onClick={handleModalClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
-
   )
 }
 
-export default AddFoodModal
+export default EditFoodModal

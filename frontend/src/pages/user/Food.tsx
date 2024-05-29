@@ -1,57 +1,61 @@
-import { Container, Heading, SimpleGrid } from "@chakra-ui/react"
+import { Container, Heading, SimpleGrid, Flex } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import UserOrderCard from "../../components/OrderItemCard"
+import SpinnerScreen from "../../components/SpinnerScreen"
+import axios from "../../utils/axiosInstance"
 
 
 const Food = () => {
 
-  interface FoodType {
+  type FoodType = {
+    _id: string,
     name: string,
-    descr: string,
-    price: string
+    description: string,
+    price: string,
+    imgURL: string
   }
 
   const [data, setData] = useState<FoodType[]>([])
+  const [loading, setLoading] = useState(true)
 
   // Add useEffect to fetch data
   useEffect(() => {
-    // Dummy data
-    setData([
-      {
-        name: 'Cheese Pizza',
-        descr: 'Pizza loaded with cheese.',
-        price: '$5'
-      },
-      {
-        name: 'Pepperoni Pizza',
-        descr: 'Pizza topped with pepperoni slices.',
-        price: '$6'
-      },
-      {
-        name: 'Hawaiian Pizza',
-        descr: 'Pizza topped with ham and pineapple.',
-        price: '$8'
-      },
-      {
-        name: 'Veggie Supreme Pizza',
-        descr: 'Pizza loaded with assorted vegetables.',
-        price: '$8'
-      }
-    ])
+    axios.get('/api/foods')
+      .then(res => {
+        setData(res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+
   }, [])
 
-
+  if (loading) {
+    return <SpinnerScreen />
+  }
 
   return (
-    <Container maxW='5xl' p='5rem'>
+    <Container maxW='5xl' p='5rem' h='90%'>
       <Heading mb='3rem' as='h1'>Food</Heading>
-      <SimpleGrid justifyContent='center' spacing={10} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
 
-        {data.map(dish => (
-          <UserOrderCard imgSrc="https://www.greenchickchop.in/cdn/shop/files/RumaliRoti_result.webp?v=1682660083" title={dish.name} descr={dish.descr} price={dish.price} />
-        ))}
+      {(data.length === 0) ? (
+        <Flex justifyContent='center' alignItems='center' h='100%'>
+          <Heading as='h2' color='gray.500'>No items</Heading>
+        </Flex>
+      ) : (
+        <SimpleGrid justifyContent='center' spacing={10} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
 
-      </SimpleGrid>
+          {data.map(item => (
+            <UserOrderCard key={item._id} imgSrc={item.imgURL} title={item.name} description={item.description} price={item.price} />
+          ))}
+
+        </SimpleGrid>
+      )}
+
+
     </Container >
   )
 }

@@ -4,11 +4,11 @@ interface ItemCardProps {
   imgSrc: string,
   imgAlt?: string,
   title: string,
-  descr: string,
+  description: string,
   price: string
 }
 
-const OrderItemCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCardProps) => {
+const OrderItemCard = ({ imgSrc, imgAlt = 'img', title, description, price }: ItemCardProps) => {
   return (
     <Card maxW='100%'>
       <CardBody>
@@ -20,7 +20,7 @@ const OrderItemCard = ({ imgSrc, imgAlt = 'img', title, descr, price }: ItemCard
         <Stack mt='6' spacing='3'>
           <Heading size='md'>{title}</Heading>
           <Text>
-            {descr}
+            {description}
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             {price}
