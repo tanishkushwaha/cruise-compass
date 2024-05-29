@@ -1,4 +1,5 @@
 import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
+import fs from "fs";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -20,6 +21,9 @@ const uploadImageToCloudinary = async (
   } catch (error) {
     console.log(error);
     return null;
+  } finally {
+    // Delete the file from the local storage
+    fs.unlinkSync(localFilePath);
   }
 };
 
