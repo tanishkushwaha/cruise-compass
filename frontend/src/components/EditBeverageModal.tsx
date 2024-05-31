@@ -6,36 +6,29 @@ import axios from "../utils/axiosInstance"
 type PropsType = {
   isOpen: boolean;
   onClose: () => void;
+  id: string;
   setUpdate?: Dispatch<React.SetStateAction<boolean>>;
+  name: string;
+  description: string;
+  price: string;
 }
 
 type InputDataType = {
   name: string,
   description: string,
-  price: string,
+  price: string
 }
 
 
-const AddSnackModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
+const EditBeverageModal = ({ isOpen, onClose, id, setUpdate, name, description, price }: PropsType) => {
   const toast = useToast()
   const [loading, setLoading] = useState(false)
-
   const [inputData, setInputData] = useState<InputDataType>({
-    name: '',
-    description: '',
-    price: '',
+    name,
+    description,
+    price,
   })
-
   const [imgFile, setImageFile] = useState<File | null>(null)
-
-  const resetData = () => {
-    setInputData({
-      name: '',
-      description: '',
-      price: '',
-    })
-    setImageFile(null)
-  }
 
   const [inputErrors, setInputErrors] = useState({
     name: false,
@@ -94,7 +87,6 @@ const AddSnackModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
     if (!formValid) return
 
     // Send the inputData to the backend
-
     const formData = new FormData()
     formData.append('name', inputData.name)
     formData.append('description', inputData.description)
@@ -105,14 +97,14 @@ const AddSnackModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
     console.log(imgFile)
 
     setLoading(true)
-    axios.post('/api/snacks', formData, {
+    axios.put(`/api/beverages/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       }
     })
       .then(res => {
         toast({
-          title: 'Snack item added successfully!',
+          title: 'Beverage item updated successfully!',
           status: 'success',
           duration: 5000,
           isClosable: true,
@@ -122,7 +114,7 @@ const AddSnackModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
       })
       .catch(err => {
         toast({
-          title: 'Error adding snack item',
+          title: 'Error updating beverage item',
           status: 'error',
           duration: 5000,
           isClosable: true,
@@ -135,36 +127,33 @@ const AddSnackModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
         setUpdate!(true)
         setLoading(false)
       })
-
   }
 
   const handleModalClose = () => {
     onClose()
-    resetData()
   }
 
   return (
     <Modal isOpen={isOpen} onClose={handleModalClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add Snack</ModalHeader>
+        <ModalHeader>Edit Beverage</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Stack direction='column' gap={5}>
-            <FormInput label="Enter Snack Name" name="name" value={inputData.name} onChange={handleChange} error={inputErrors.name} />
+            <FormInput label="Enter Beverage Name" name="name" value={inputData.name} onChange={handleChange} error={inputErrors.name} />
             <FormInput label="Enter Description" name="description" value={inputData.description} onChange={handleChange} error={inputErrors.description} />
             <FormInput label="Enter Price" name="price" value={inputData.price} onChange={handleChange} error={inputErrors.price} />
             <FormInput type="file" accept="image/png, image/jpeg" label="Upload Picture (square preffered)" name="image" onChange={handleFileChange} error={inputErrors.imgFile} />
           </Stack>
         </ModalBody>
         <ModalFooter>
-          <Button colorScheme='blue' mr={3} onClick={handleSubmit} isLoading={loading}>Add</Button>
+          <Button colorScheme='blue' mr={3} onClick={handleSubmit} isLoading={loading}>Update</Button>
           <Button variant='outline' colorScheme='blue' onClick={handleModalClose}>Close</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
-
   )
 }
 
-export default AddSnackModal
+export default EditBeverageModal

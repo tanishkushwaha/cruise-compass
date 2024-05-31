@@ -8,7 +8,7 @@ import EditFoodModal from "../../components/EditFoodModal"
 
 
 const ManageFoodItems = () => {
-  const addFoodModel = useDisclosure()
+  const addFoodModal = useDisclosure()
 
   type DataType = {
     _id: string,
@@ -56,8 +56,8 @@ const ManageFoodItems = () => {
 
         </SimpleGrid>
       )}
-      <AddFoodModal isOpen={addFoodModel.isOpen} onClose={addFoodModel.onClose} setUpdate={setUpdate} />
-      <FloatingAddButton onClick={addFoodModel.onOpen} />
+      <AddFoodModal isOpen={addFoodModal.isOpen} onClose={addFoodModal.onClose} setUpdate={setUpdate} />
+      <FloatingAddButton onClick={addFoodModal.onOpen} />
     </Container >
   )
 }
@@ -74,7 +74,7 @@ type PropsType = {
 
 const ItemCard = ({ id, imgSrc, imgAlt = 'img', title, descr, price, setUpdate }: PropsType) => {
   const toast = useToast()
-  const editFoodModel = useDisclosure()
+  const editFoodModal = useDisclosure()
 
   const deleteButtonHandler = (id: string) => {
     console.log(id)
@@ -130,7 +130,7 @@ const ItemCard = ({ id, imgSrc, imgAlt = 'img', title, descr, price, setUpdate }
           <Button variant='solid'
             colorScheme='yellow' size='md'
             onClick={() => {
-              editFoodModel.onOpen()
+              editFoodModal.onOpen()
             }}>
             Edit
           </Button>
@@ -141,7 +141,7 @@ const ItemCard = ({ id, imgSrc, imgAlt = 'img', title, descr, price, setUpdate }
           </Button>
         </Flex>
       </CardFooter>
-      <EditFoodModal isOpen={editFoodModel.isOpen} onClose={editFoodModel.onClose} setUpdate={setUpdate} id={id} name={title} description={descr} price={price} />
+      <EditFoodModal isOpen={editFoodModal.isOpen} onClose={editFoodModal.onClose} setUpdate={setUpdate} id={id} name={title} description={descr} price={price} />
     </Card>
   )
 }

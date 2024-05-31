@@ -16,21 +16,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const food = await Food.findById(id);
-
-    if (!food) return res.status(404).json({ message: "Food not found" });
-
-    return res.status(200).json(food);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ message: err });
-  }
-});
-
 router.post("/", upload.single("imgFile"), async (req, res) => {
   try {
     const data: { name: string; description: string; price: number } = req.body;
@@ -69,10 +54,6 @@ router.post("/", upload.single("imgFile"), async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-
-    if (!id) {
-      return res.status(400).json({ message: "Send the food id." });
-    }
 
     // Delete from DB
     await Food.findByIdAndDelete(id);

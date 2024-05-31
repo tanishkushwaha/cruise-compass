@@ -28,7 +28,6 @@ const AddFoodModal = ({ isOpen, onClose, setUpdate }: PropsType) => {
 
   const [imgFile, setImageFile] = useState<File | null>(null)
 
-
   const resetData = () => {
     setInputData({
       name: '',

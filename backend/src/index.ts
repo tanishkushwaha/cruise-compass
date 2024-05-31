@@ -31,7 +31,7 @@ app.use("/api/users", userRoute);
 app.use("/api/foods", foodRoute);
 app.use("/api/snacks", snackRoute);
 app.use("/api/beverages", beverageRoute);
-app.use("/api/stationery", stationeryRoute);
+app.use("/api/stationeries", stationeryRoute);
 
 app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello from Cruise Compass API");
