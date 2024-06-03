@@ -1,3 +1,4 @@
+import RootRedirect from "./components/RootRedirect"
 import AddUser from "./pages/admin/AddUser"
 import AdminDashboard from "./pages/admin/AdminDashboard"
 import EditUser from "./pages/admin/EditUser"
@@ -21,6 +22,7 @@ import Account from "./pages/user/Account"
 import BeautySalon from "./pages/user/BeautySalon"
 import Beverages from "./pages/user/Beverages"
 import Book from "./pages/user/Book"
+import Cart from "./pages/user/Cart"
 import Catering from "./pages/user/Catering"
 import FitnessCenter from "./pages/user/FitnessCenter"
 import Food from "./pages/user/Food"
@@ -28,6 +30,9 @@ import Movies from "./pages/user/Movies"
 import PartyHall from "./pages/user/PartyHall"
 import Snacks from "./pages/user/Snacks"
 import Stationery from "./pages/user/Stationery"
+
+import roles from "./rbac/roles"
+const { ADMIN, USER, MANAGER, HEAD_COOK, SUPERVISOR } = roles
 
 type RouteType = {
   path: string;
@@ -37,45 +42,47 @@ type RouteType = {
 
 const routes: RouteType[] = [
   // User routes
-  { path: '/', element: <Home />, roles: ['USER', 'MANAGER'] },
-  { path: '/account', element: <Account />, roles: ['USER', 'MANAGER'] },
-  { path: '/order/catering', element: <Catering />, roles: ['USER'] },
-  { path: '/order/catering/food', element: <Food />, roles: ['USER'] },
-  { path: '/order/catering/snacks', element: <Snacks />, roles: ['USER'] },
-  { path: '/order/catering/beverages', element: <Beverages />, roles: ['USER'] },
-  { path: '/order/stationery', element: <Stationery />, roles: ['USER'] },
-  { path: '/book', element: <Book />, roles: ['USER'] },
-  { path: '/book/movies', element: <Movies />, roles: ['USER'] },
-  { path: '/book/beauty-salon', element: <BeautySalon />, roles: ['USER'] },
-  { path: '/book/fitness-centre', element: <FitnessCenter />, roles: ['USER'] },
-  { path: '/book/party-hall', element: <PartyHall />, roles: ['USER'] },
+  { path: '/', element: <RootRedirect />, roles: [USER, MANAGER, HEAD_COOK, SUPERVISOR, ADMIN] },
+  { path: '/home', element: <Home />, roles: [USER] },
+  { path: '/cart', element: <Cart />, roles: [USER] },
+  { path: '/account', element: <Account />, roles: [USER, MANAGER, HEAD_COOK, SUPERVISOR, ADMIN] },
+  { path: '/order/catering', element: <Catering />, roles: [USER] },
+  { path: '/order/catering/food', element: <Food />, roles: [USER] },
+  { path: '/order/catering/snacks', element: <Snacks />, roles: [USER] },
+  { path: '/order/catering/beverages', element: <Beverages />, roles: [USER] },
+  { path: '/order/stationery', element: <Stationery />, roles: [USER] },
+  { path: '/book', element: <Book />, roles: [USER] },
+  { path: '/book/movies', element: <Movies />, roles: [USER] },
+  { path: '/book/beauty-salon', element: <BeautySalon />, roles: [USER] },
+  { path: '/book/fitness-centre', element: <FitnessCenter />, roles: [USER] },
+  { path: '/book/party-hall', element: <PartyHall />, roles: [USER] },
 
   // Manager routes
-  { path: '/management', element: <Management />, roles: ['MANAGER'] },
-  { path: '/management/movie-bookings', element: <MovieBookings />, roles: ['MANAGER'] },
-  { path: '/management/salon-bookings', element: <SalonBookings />, roles: ['MANAGER'] },
-  { path: '/management/fitness-center-bookings', element: <FitnessCentreBookings />, roles: ['MANAGER'] },
-  { path: '/management/party-hall-bookings', element: <PartyHallBookings />, roles: ['MANAGER'] },
+  { path: '/management', element: <Management />, roles: [MANAGER] },
+  { path: '/management/movie-bookings', element: <MovieBookings />, roles: [MANAGER] },
+  { path: '/management/salon-bookings', element: <SalonBookings />, roles: [MANAGER] },
+  { path: '/management/fitness-center-bookings', element: <FitnessCentreBookings />, roles: [MANAGER] },
+  { path: '/management/party-hall-bookings', element: <PartyHallBookings />, roles: [MANAGER] },
 
   // Head cook routes
-  { path: '/orders/catering', element: <CateringOrders />, roles: ['HEAD_COOK'] },
-  { path: '/orders/catering/food', element: <CateringOrders />, roles: ['HEAD_COOK'] },
-  { path: '/orders/catering/snacks', element: <SnackOrders />, roles: ['HEAD_COOK'] },
-  { path: '/orders/catering/beverages', element: <BeverageOrders />, roles: ['HEAD_COOK'] },
+  { path: '/orders/catering', element: <CateringOrders />, roles: [HEAD_COOK] },
+  { path: '/orders/catering/food', element: <CateringOrders />, roles: [HEAD_COOK] },
+  { path: '/orders/catering/snacks', element: <SnackOrders />, roles: [HEAD_COOK] },
+  { path: '/orders/catering/beverages', element: <BeverageOrders />, roles: [HEAD_COOK] },
 
   // Supervisor routes
-  { path: '/orders/stationery', element: <StationeryOrders />, roles: ['SUPERVISOR'] },
+  { path: '/orders/stationery', element: <StationeryOrders />, roles: [SUPERVISOR] },
 
   // Admin routes
-  { path: '/admin', element: <AdminDashboard />, roles: ['ADMIN'] },
-  { path: '/admin/users/add', element: <AddUser />, roles: ['ADMIN'] },
-  { path: '/admin/users/view', element: <ViewUser />, roles: ['ADMIN'] },
-  { path: '/admin/users/edit/:id', element: <EditUser />, roles: ['ADMIN'] },
-  { path: '/admin/movies', element: <ManageMovieItems />, roles: ['ADMIN'] },
-  { path: '/admin/catering/food', element: <ManageFoodItems />, roles: ['ADMIN'] },
-  { path: '/admin/catering/snacks', element: <ManageSnackItems />, roles: ['ADMIN'] },
-  { path: '/admin/catering/beverages', element: <ManageBeverageItems />, roles: ['ADMIN'] },
-  { path: '/admin/stationery', element: <ManageStationeryItems />, roles: ['ADMIN'] },
+  { path: '/admin', element: <AdminDashboard />, roles: [ADMIN] },
+  { path: '/admin/users/add', element: <AddUser />, roles: [ADMIN] },
+  { path: '/admin/users/view', element: <ViewUser />, roles: [ADMIN] },
+  { path: '/admin/users/edit/:id', element: <EditUser />, roles: [ADMIN] },
+  { path: '/admin/movies', element: <ManageMovieItems />, roles: [ADMIN] },
+  { path: '/admin/catering/food', element: <ManageFoodItems />, roles: [ADMIN] },
+  { path: '/admin/catering/snacks', element: <ManageSnackItems />, roles: [ADMIN] },
+  { path: '/admin/catering/beverages', element: <ManageBeverageItems />, roles: [ADMIN] },
+  { path: '/admin/stationery', element: <ManageStationeryItems />, roles: [ADMIN] },
 ]
 
 export default routes
