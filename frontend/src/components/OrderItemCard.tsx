@@ -1,4 +1,4 @@
-import { Card, CardBody, Stack, Heading, Divider, CardFooter, Button, Image, Text, Flex } from "@chakra-ui/react"
+import { Card, CardBody, Stack, Heading, CardFooter, Button, Image, Text, Flex } from "@chakra-ui/react"
 
 interface ItemCardProps {
   imgSrc: string,
@@ -18,19 +18,18 @@ const OrderItemCard = ({ imgSrc, imgAlt = 'img', title, description, price }: It
           borderRadius='md'
         />
         <Stack mt='6' spacing='3'>
-          <Heading size='md'>{title}</Heading>
+          <Heading size='md' fontWeight={600}>{title}</Heading>
           <Text>
             {description}
           </Text>
           <Text color='blue.600' fontSize='2xl'>
-            {price}
+            {`Rs. ${price}`}
           </Text>
         </Stack>
       </CardBody>
-      <Divider />
       <CardFooter>
 
-        <Flex width='100%' gap={2} justifyContent='right'>
+        <Flex width='100%' gap={3} justifyContent='right'>
           <Button variant='outline' colorScheme='blue' size='md'>
             Add
           </Button>

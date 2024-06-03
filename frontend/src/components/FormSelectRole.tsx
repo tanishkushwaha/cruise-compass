@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, FormErrorMessage, Select } from "@chakra-ui/react"
+import { FormControl, FormLabel, FormErrorMessage, Select, Text } from "@chakra-ui/react"
 
 type Props = {
   onChange: React.ChangeEventHandler<HTMLSelectElement>;
@@ -11,7 +11,7 @@ type Props = {
 const FormSelectRole = ({ onChange, error = false, errorMessage = 'Select an option.', isRequired = false, value }: Props) => {
   return (
     <FormControl isInvalid={error} isRequired={isRequired}>
-      <FormLabel>Select Role</FormLabel>
+      <FormLabel><Text fontSize='lg'> Select Role</Text></FormLabel>
       <Select onChange={onChange} value={value}>
         <option value='USER'>User</option>
         <option value='MANAGER'>Manager</option>

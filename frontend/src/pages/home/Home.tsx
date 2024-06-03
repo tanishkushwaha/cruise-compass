@@ -11,16 +11,16 @@ const Home = () => {
   return (
     <Container maxW='5xl' p='5rem'>
       <Heading mb='3rem' as='h1'>Home</Heading>
-      <Stack direction='column' spacing='5rem'>
+      <Stack direction='column' spacing='3rem'>
         <Box>
-          <Heading mb='2rem' as='h2' size='lg'>Order</Heading>
+          <Heading mb='2rem' as='h2' size='lg' fontWeight={700}>Order</Heading>
           <SimpleGrid spacing={10} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
             <MenuItemCard title='Catering' icon={<Icon as={BiSolidDish} color='white' />} onClick={() => navigate('/order/catering')} />
             <MenuItemCard title='Stationery' icon={<Icon as={FaPenAlt} color='white' />} onClick={() => navigate('/order/stationery')} />
           </SimpleGrid>
         </Box>
         <Box>
-          <Heading mb='2rem' as='h2' size='lg'>Book</Heading>
+          <Heading mb='2rem' as='h2' size='lg' fontWeight={700}>Book</Heading>
           <SimpleGrid spacing={10} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
             <MenuItemCard title='Movies' icon={<Icon as={BiSolidMoviePlay} color='white' />} onClick={() => navigate('/book/movies')} />
             <MenuItemCard title='Beauty Salon' icon={<Icon as={GiLipstick} color='white' />} onClick={() => navigate('/book/beauty-salon')} />

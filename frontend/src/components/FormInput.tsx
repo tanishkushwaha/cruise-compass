@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Input, FormErrorMessage } from "@chakra-ui/react"
+import { FormControl, FormLabel, Input, FormErrorMessage, Text } from "@chakra-ui/react"
 import { CSSProperties } from "react";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 const FormInput = ({ label, name, type = 'text', value, placeholder, onChange, error = false, errorMessage = 'This field is required.', isRequired = false, style, accept, disabled }: Props) => {
   return (
     <FormControl isInvalid={error} isRequired={isRequired}>
-      <FormLabel>{label}</FormLabel>
+      <FormLabel><Text fontSize='lg'>{label}</Text></FormLabel>
       <Input type={type} name={name} value={value} placeholder={placeholder} onChange={onChange} accept={accept} style={style} disabled={disabled} />
       <FormErrorMessage>{errorMessage}</FormErrorMessage>
     </FormControl>

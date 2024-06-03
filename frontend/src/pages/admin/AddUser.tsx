@@ -138,13 +138,12 @@ const AddUser = () => {
 
   return (
     <Container maxW='5xl' p='5rem'>
-      <Heading mb='3rem' as='h1'>Add User</Heading>
+      <Heading mb='3rem' as='h1' fontWeight={800}>Add User</Heading>
       <Stack direction='column' spacing='1.5rem'>
         <FormInput label='First Name' name='firstName' type="text" value={data.firstName} placeholder="Eg: Tanish" onChange={handleInputChange} error={inputErrors.firstName} />
         <FormInput label='Last Name' name='lastName' type="text" value={data.lastName} placeholder="Eg: Kushwaha" onChange={handleInputChange} error={inputErrors.lastName} />
         <FormInput label='Phone Number' name='phone' type="number" value={data.phone} placeholder="Eg: 9876543210" onChange={handleInputChange} error={inputErrors.phone} />
         <FormInput label='Email' name='email' type="email" value={data.email} placeholder="Eg: tanish@example.com" onChange={handleInputChange} error={inputErrors.email} />
-        {/* <FormInput label='Role' name='role' type="text" value={data.role} placeholder="Eg: USER" onChange={handleInputChange} error={inputErrors.role} style={{ textTransform: "uppercase" }} /> */}
 
         <FormSelectRole onChange={handleSelectChange} error={inputErrors.role} />
 

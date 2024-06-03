@@ -58,7 +58,7 @@ const ViewUser = () => {
 
   return (
     <Container maxW='5xl' p='5rem'>
-      <Heading mb='3rem' as='h1'>View User</Heading>
+      <Heading mb='3rem' as='h1' fontWeight={800}>View User</Heading>
       <Stack direction='column' spacing='1.5rem' mb='3rem'>
         <FormInput label='Email' name='id' value={email} onChange={handleChange} error={inputError} errorMessage='Invalid ID' />
         <Button w='6rem' colorScheme='blue' onClick={handleSubmit}>Submit</Button>

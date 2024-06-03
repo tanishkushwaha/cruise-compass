@@ -87,11 +87,11 @@ const Login = () => {
               <Image display={{ base: 'none', md: 'block' }} src={CruiseImage} alt='cruise-image' />
             </GridItem>
             <GridItem colSpan={{ base: 12, md: 6 }} p='2rem'>
-              <Heading letterSpacing={1} mb='1.5rem'>Log in</Heading>
+              <Heading mb='1.5rem'>Log in</Heading>
               <Flex direction='column' gap={4}>
                 <FormInput label='Email' name='email' type='text' value={data.email} onChange={handleChange} error={errors.email} />
                 <FormInput label='Password' name='password' type='password' value={data.password} onChange={handleChange} error={errors.password} />
-                <Button w='6rem' mt='0.5rem' colorScheme='blue' letterSpacing={1} onClick={submitForm}>Submit</Button>
+                <Button w='6rem' mt='0.5rem' colorScheme='blue' onClick={submitForm}>Submit</Button>
                 <Flex justifyContent='end'>
                   <Link to='/register'><Text as='u' color='blue.800'>Don't have account?</Text></Link>
                 </Flex>
