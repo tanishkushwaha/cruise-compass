@@ -1,16 +1,16 @@
-import { Avatar, Flex, Grid, GridItem, Text } from "@chakra-ui/react"
+import { Box, Flex, Grid, GridItem, Text } from "@chakra-ui/react"
 import { IoMdHome } from "react-icons/io"
-import { FaClipboardList } from "react-icons/fa";
+import { FaClipboardList, FaShoppingCart } from "react-icons/fa";
 import { MdManageAccounts } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { FaCog } from "react-icons/fa";
-
 import { Icon } from "@chakra-ui/react"
 import { Outlet } from "react-router-dom"
 import { NavLink } from "react-router-dom"
 import useAuth from "../hooks/useAuth";
 import { CSSProperties } from "react";
 import { FiLogOut } from "react-icons/fi";
+import roles from "../rbac/roles";
 
 const Navbar = () => {
   const auth = useAuth()
@@ -18,33 +18,41 @@ const Navbar = () => {
   return (
     <>
       <Grid templateColumns='repeat(12, 1fr)' >
-        <GridItem colSpan={2} bg='black' p={1}>
-          <Flex justifyContent='center' alignItems='center' flexDirection='column' gap={3} mb='2rem'>
-            <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' size='md' />
-            <Text fontSize='lg' letterSpacing={1} color='white' as='b'>{`${auth.user.firstName} ${auth.user.lastName}`}</Text>
-          </Flex>
+        <GridItem colSpan={{ base: 1, lg: 2 }}>
+          <Box bg='black' h='100vh' w={{ base: '60px', lg: 'auto' }} pt={10}>
+            <Flex justifyContent='center' alignItems='center' flexDirection='column' gap={3} mb='2rem'>
+              <Text color='white' fontSize='lg' fontWeight={800} display={{ base: 'none', lg: 'block' }}>Cruise Compass</Text>
+              {/* <Avatar name='Dan Abrahmov' src='https://bit.ly/dan-abramov' size='md' /> */}
+              {/* <Text fontSize='lg' color='white'>{`${auth.user.firstName} ${auth.user.lastName}`}</Text> */}
+            </Flex>
 
-          <Flex direction='column'>
-            <NavItem title='Home' icon={<Icon as={IoMdHome} color='white' />} path='/' />
-            <NavItem title='Account' icon={<Icon as={FaCog} color='white' />} path='/account' />
-            {auth.user.role === 'MANAGER' ? (
-              <NavItem title='Management' icon={<Icon as={MdManageAccounts} color='white' />} path='/management' />
-            ) : auth.user.role === 'HEAD_COOK' ? (
-              <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' />} path='/orders/catering' />
+            <Flex direction='column'>
+              {auth.user.role === roles.USER ? (
+                <>
+                  <NavItem title='Home' icon={<Icon as={IoMdHome} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/home' />
+                  <NavItem title='Cart' icon={<Icon as={FaShoppingCart} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/cart' />
+                  <NavItem title='My Orders' icon={<Icon as={FaClipboardList} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/orders' />
+                </>
+              ) : auth.user.role === roles.MANAGER ? (
+                <NavItem title='Management' icon={<Icon as={MdManageAccounts} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/management' />
+              ) : auth.user.role === roles.HEAD_COOK ? (
+                <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/orders/catering' />
 
-            ) : auth.user.role === 'SUPERVISOR' ? (
-              <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' />} path='/orders/stationery' />
+              ) : auth.user.role === roles.SUPERVISOR ? (
+                <NavItem title='Orders' icon={<Icon as={FaClipboardList} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/orders/stationery' />
 
-            ) : (auth.user.role === 'ADMIN') ? (
-              <NavItem title='Admin' icon={<Icon as={RiAdminFill} color='white' />} path='/admin' />
+              ) : (auth.user.role === roles.ADMIN) ? (
+                <NavItem title='Admin' icon={<Icon as={RiAdminFill} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/admin' />
 
-            ) : null
-            }
-            <NavItem title='Logout' icon={<Icon as={FiLogOut} color='white' />} path='/logout' style={{ marginTop: '3rem' }} />
+              ) : null
+              }
+              <NavItem title='Account' icon={<Icon as={FaCog} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/account' />
+              <NavItem title='Logout' icon={<Icon as={FiLogOut} color='white' boxSize={{ base: 6, lg: 5 }} />} path='/logout' style={{ marginTop: 'auto' }} />
 
-          </Flex>
+            </Flex>
+          </Box>
         </GridItem>
-        <GridItem colSpan={10} overflow='auto' h='100vh'>
+        <GridItem colSpan={{ base: 11, lg: 10 }} overflow='auto' h='100vh'>
           <Outlet />
         </GridItem>
       </Grid>
@@ -58,12 +66,11 @@ const NavItem = ({ title, path, icon, style }: { title: string, path: string, ic
     <NavLink style={style} to={path} className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
 
       {({ isActive }) => (
-        <Flex h='30px' px='1rem' py='2rem' gap={2} alignItems='center' borderRadius={8} _hover={{ bgColor: 'gray.900' }} cursor='pointer' bgColor={isActive ? 'gray.900' : ''}>
+        <Flex h='30px' px='1rem' py='2rem' gap={2} alignItems='center' justifyContent={{ base: 'center', lg: 'flex-start' }} _hover={{ bgColor: 'gray.900' }} cursor='pointer' bgColor={isActive ? 'gray.800' : ''}>
           {icon}
-          <Text fontSize='md' letterSpacing='1px' color='white' as='b'>{title}</Text>
+          <Text display={{ base: 'none', lg: 'block' }} fontSize='lg' color='white' fontWeight={400}>{title}</Text>
         </Flex>
       )}
-
 
     </NavLink>
   )
