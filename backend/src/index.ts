@@ -18,7 +18,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://probable-space-computing-machine-j74j6qvq4jp2jj5p-5173.app.github.dev",
     credentials: true,
   })
 );
