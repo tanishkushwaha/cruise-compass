@@ -40,7 +40,7 @@ const QtySelector = () => {
 
   return (
     <Flex mt='1rem'>
-      <IconButton size='xs' colorScheme='blue' aria-label='Search database' icon={<FaMinus />} onClick={() => setQty(prevQty => --prevQty)} />
+      <IconButton size='xs' colorScheme='blue' aria-label='Search database' icon={<FaMinus />} onClick={() => qty != 0 && setQty(prevQty => --prevQty)} />
       <Flex bgColor='white' w='40px' h='24px' justifyContent='center' alignItems='center'>{qty}</Flex>
       <IconButton size='xs' colorScheme='blue' aria-label='Search database' icon={<FaPlus />} onClick={() => setQty(prevQty => ++prevQty)} />
     </Flex>
