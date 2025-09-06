@@ -15,10 +15,19 @@ type AuthContextType = {
   user: User | null;
 };
 
+// TODO: Clean this up later
+const MOCK_USER = {
+  firstName: "John",
+  lastName: "Wick",
+  email: "john@example.com",
+  phone: "123456",
+  role: "USER",
+};
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(MOCK_USER);
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 

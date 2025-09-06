@@ -5,11 +5,11 @@ import { MdManageAccounts } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { FaCog } from "react-icons/fa";
 import { Icon } from "@chakra-ui/react";
-import useAuth from "../hooks/useAuth";
 import { CSSProperties } from "react";
 import { FiLogOut } from "react-icons/fi";
 import roles from "../rbac/roles";
 import { NavLink, Outlet } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 const Navbar = () => {
   const auth = useAuth();
@@ -39,7 +39,7 @@ const Navbar = () => {
             </Flex>
 
             <Flex direction='column'>
-              {auth.user.role === roles.USER ? (
+              {auth.user?.role === roles.USER ? (
                 <>
                   <NavItem
                     title='Home'
@@ -75,7 +75,7 @@ const Navbar = () => {
                     path='/orders'
                   />
                 </>
-              ) : auth.user.role === roles.MANAGER ? (
+              ) : auth.user?.role === roles.MANAGER ? (
                 <NavItem
                   title='Management'
                   icon={
@@ -87,7 +87,7 @@ const Navbar = () => {
                   }
                   path='/management'
                 />
-              ) : auth.user.role === roles.HEAD_COOK ? (
+              ) : auth.user?.role === roles.HEAD_COOK ? (
                 <NavItem
                   title='Orders'
                   icon={
@@ -99,7 +99,7 @@ const Navbar = () => {
                   }
                   path='/orders/catering'
                 />
-              ) : auth.user.role === roles.SUPERVISOR ? (
+              ) : auth.user?.role === roles.SUPERVISOR ? (
                 <NavItem
                   title='Orders'
                   icon={
@@ -111,7 +111,7 @@ const Navbar = () => {
                   }
                   path='/orders/stationery'
                 />
-              ) : auth.user.role === roles.ADMIN ? (
+              ) : auth.user?.role === roles.ADMIN ? (
                 <NavItem
                   title='Admin'
                   icon={
