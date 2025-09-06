@@ -9,6 +9,7 @@ import useAuth from "../hooks/useAuth";
 import { CSSProperties } from "react";
 import { FiLogOut } from "react-icons/fi";
 import roles from "../rbac/roles";
+import { NavLink, Outlet } from "react-router";
 
 const Navbar = () => {
   const auth = useAuth();
@@ -146,32 +147,56 @@ const Navbar = () => {
           </Box>
         </GridItem>
         <GridItem colSpan={{ base: 11, lg: 10 }} overflow='auto' h='100vh'>
-          {/* <Outlet /> */}
+          <Outlet />
         </GridItem>
       </Grid>
     </>
   );
 };
 
-const NavItem = ({}: {
+const NavItem = ({
+  title,
+  path,
+  icon,
+  style,
+}: {
   title: string;
   path: string;
   icon: any;
   style?: CSSProperties;
 }) => {
   return (
-    <></>
-
-    // <NavLink style={style} to={path} className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>
-
-    //   {({ isActive }) => (
-    //     <Flex h='30px' px='1rem' py='2rem' gap={2} alignItems='center' justifyContent={{ base: 'center', lg: 'flex-start' }} _hover={{ bgColor: 'gray.900' }} cursor='pointer' bgColor={isActive ? 'gray.800' : ''}>
-    //       {icon}
-    //       <Text display={{ base: 'none', lg: 'block' }} fontSize='lg' color='white' fontWeight={400}>{title}</Text>
-    //     </Flex>
-    //   )}
-
-    // </NavLink>
+    <NavLink
+      style={style}
+      to={path}
+      className={({ isActive, isPending }) =>
+        isPending ? "pending" : isActive ? "active" : ""
+      }
+    >
+      {({ isActive }) => (
+        <Flex
+          h='30px'
+          px='1rem'
+          py='2rem'
+          gap={2}
+          alignItems='center'
+          justifyContent={{ base: "center", lg: "flex-start" }}
+          _hover={{ bgColor: "gray.900" }}
+          cursor='pointer'
+          bgColor={isActive ? "gray.800" : ""}
+        >
+          {icon}
+          <Text
+            display={{ base: "none", lg: "block" }}
+            fontSize='lg'
+            color='white'
+            fontWeight={400}
+          >
+            {title}
+          </Text>
+        </Flex>
+      )}
+    </NavLink>
   );
 };
 

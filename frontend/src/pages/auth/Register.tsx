@@ -13,10 +13,11 @@ import { useState } from "react";
 import CruiseImage from "../../assets/login.jpg";
 import FormInput from "../../components/FormInput";
 import axios from "../../utils/axiosInstance";
+import { Link, useNavigate } from "react-router";
 
 const Register = () => {
   const toast = useToast();
-  // const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // State for storing the form data
   const [data, setData] = useState({
@@ -85,7 +86,7 @@ const Register = () => {
           isClosable: true,
           position: "top-right",
         });
-        // navigate('/login')
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
@@ -181,7 +182,11 @@ const Register = () => {
                   Submit
                 </Button>
                 <Flex justifyContent='end'>
-                  {/* <Link to='/login'><Text as='u' color='blue.800'>Already have an account?</Text></Link> */}
+                  <Link to='/login'>
+                    <Text as='u' color='blue.800'>
+                      Already have an account?
+                    </Text>
+                  </Link>
                 </Flex>
               </Flex>
             </GridItem>
