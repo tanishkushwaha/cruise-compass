@@ -37,6 +37,8 @@ import ManageStationeryItems from "./pages/admin/ManageStationeryItems";
 import ViewUser from "./pages/admin/ViewUser";
 import Cart from "./pages/user/Cart";
 import SpinnerScreen from "./components/SpinnerScreen";
+import ProtectedRoute from "./rbac/ProtectedRoute";
+import { roles } from "./rbac/roles";
 
 const NavbarWrapper = () => {
   const { loading, loggedIn } = useAuth();
@@ -60,15 +62,16 @@ const Router = () => {
         },
         {
           path: "home",
-          Component: Home,
+          element: <ProtectedRoute roles={[roles.USER]} Component={<Home />} />,
         },
         {
           path: "management",
-          Component: Management,
-        },
-        {
-          path: "admin",
-          Component: AdminDashboard,
+          element: (
+            <ProtectedRoute
+              roles={[roles.MANAGER]}
+              Component={<Management />}
+            />
+          ),
         },
         {
           path: "account",
@@ -76,119 +79,219 @@ const Router = () => {
         },
         {
           path: "order/catering",
-          Component: Catering,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<Catering />} />
+          ),
         },
         {
           path: "order/catering/food",
-          Component: Food,
+          element: <ProtectedRoute roles={[roles.USER]} Component={<Food />} />,
         },
         {
           path: "order/catering/snacks",
-          Component: Snacks,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<Snacks />} />
+          ),
         },
         {
           path: "order/catering/beverages",
-          Component: Beverages,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<Beverages />} />
+          ),
         },
         {
           path: "order/stationery",
-          Component: Stationery,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<Stationery />} />
+          ),
         },
         {
           path: "book",
-          Component: Book,
+          element: <ProtectedRoute roles={[roles.USER]} Component={<Book />} />,
         },
         {
           path: "book/movies",
-          Component: Movies,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<Movies />} />
+          ),
         },
         {
           path: "book/beauty-salon",
-          Component: BeautySalon,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<BeautySalon />} />
+          ),
         },
         {
           path: "book/fitness-center",
-          Component: FitnessCenter,
+          element: (
+            <ProtectedRoute
+              roles={[roles.USER]}
+              Component={<FitnessCenter />}
+            />
+          ),
         },
         {
           path: "book/party-hall",
-          Component: PartyHall,
+          element: (
+            <ProtectedRoute roles={[roles.USER]} Component={<PartyHall />} />
+          ),
         },
         {
           path: "management/movie-bookings",
-          Component: MovieBookings,
+          element: (
+            <ProtectedRoute
+              roles={[roles.MANAGER]}
+              Component={<MovieBookings />}
+            />
+          ),
         },
         {
           path: "management/salon-bookings",
-          Component: SalonBookings,
+          element: (
+            <ProtectedRoute
+              roles={[roles.MANAGER]}
+              Component={<SalonBookings />}
+            />
+          ),
         },
         {
           path: "management/fitness-center-bookings",
-          Component: FitnessCentreBookings,
+          element: (
+            <ProtectedRoute
+              roles={[roles.MANAGER]}
+              Component={<FitnessCentreBookings />}
+            />
+          ),
         },
         {
           path: "management/party-hall-bookings",
-          Component: PartyHallBookings,
+          element: (
+            <ProtectedRoute
+              roles={[roles.MANAGER]}
+              Component={<PartyHallBookings />}
+            />
+          ),
         },
         {
           path: "orders/catering",
-          Component: CateringOrders,
+          element: (
+            <ProtectedRoute
+              roles={[roles.HEAD_COOK]}
+              Component={<CateringOrders />}
+            />
+          ),
         },
         {
           path: "orders/catering/food",
-          Component: FoodOrders,
+          element: (
+            <ProtectedRoute
+              roles={[roles.HEAD_COOK]}
+              Component={<FoodOrders />}
+            />
+          ),
         },
         {
           path: "orders/catering/snacks",
-          Component: SnackOrders,
+          element: (
+            <ProtectedRoute
+              roles={[roles.HEAD_COOK]}
+              Component={<SnackOrders />}
+            />
+          ),
         },
         {
           path: "orders/catering/beverages",
-          Component: BeverageOrders,
+          element: (
+            <ProtectedRoute
+              roles={[roles.HEAD_COOK]}
+              Component={<BeverageOrders />}
+            />
+          ),
         },
         {
           path: "orders/stationery",
-          Component: StationeryOrders,
+          element: (
+            <ProtectedRoute
+              roles={[roles.SUPERVISOR]}
+              Component={<StationeryOrders />}
+            />
+          ),
         },
         {
           path: "admin",
-          Component: AdminDashboard,
+          element: (
+            <ProtectedRoute
+              roles={[roles.ADMIN]}
+              Component={<AdminDashboard />}
+            />
+          ),
         },
         {
           path: "admin/users/add",
-          Component: AddUser,
+          element: (
+            <ProtectedRoute roles={[roles.ADMIN]} Component={<AddUser />} />
+          ),
         },
         {
           path: "admin/users/view",
-          Component: ViewUser,
+          element: (
+            <ProtectedRoute roles={[roles.ADMIN]} Component={<ViewUser />} />
+          ),
         },
         {
           path: "admin/users/edit/:id",
-          Component: EditUser,
+          element: (
+            <ProtectedRoute roles={[roles.ADMIN]} Component={<EditUser />} />
+          ),
         },
         {
           path: "admin/movies",
-          Component: ManageMovieItems,
+          element: (
+            <ProtectedRoute
+              roles={[roles.ADMIN]}
+              Component={<ManageMovieItems />}
+            />
+          ),
         },
         {
           path: "admin/catering/food",
-          Component: ManageFoodItems,
+          element: (
+            <ProtectedRoute
+              roles={[roles.ADMIN]}
+              Component={<ManageFoodItems />}
+            />
+          ),
         },
         {
           path: "admin/catering/snacks",
-          Component: ManageSnackItems,
+          element: (
+            <ProtectedRoute
+              roles={[roles.ADMIN]}
+              Component={<ManageSnackItems />}
+            />
+          ),
         },
         {
           path: "admin/catering/beverages",
-          Component: ManageBeverageItems,
+          element: (
+            <ProtectedRoute
+              roles={[roles.ADMIN]}
+              Component={<ManageBeverageItems />}
+            />
+          ),
         },
         {
           path: "admin/stationery",
-          Component: ManageStationeryItems,
+          element: (
+            <ProtectedRoute
+              roles={[roles.ADMIN]}
+              Component={<ManageStationeryItems />}
+            />
+          ),
         },
         {
           path: "cart",
-          Component: Cart,
+          element: <ProtectedRoute roles={[roles.USER]} Component={<Cart />} />,
         },
       ],
     },

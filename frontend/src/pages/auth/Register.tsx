@@ -13,9 +13,13 @@ import { useState } from "react";
 import CruiseImage from "../../assets/login.jpg";
 import FormInput from "../../components/FormInput";
 import axios from "../../utils/axiosInstance";
-import { Link, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Register = () => {
+  const auth = useAuth();
+  if (auth.loggedIn) return <Navigate to='/' replace />;
+
   const toast = useToast();
   const navigate = useNavigate();
 

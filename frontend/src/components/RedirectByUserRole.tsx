@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import roles from "../rbac/roles";
+import { roles } from "../rbac/roles";
 import { useAuth } from "../contexts/AuthContext";
 
 const RedirectByUserRole = () => {

@@ -7,7 +7,7 @@ import { FaCog } from "react-icons/fa";
 import { Icon } from "@chakra-ui/react";
 import { CSSProperties } from "react";
 import { FiLogOut } from "react-icons/fi";
-import roles from "../rbac/roles";
+import { roles } from "../rbac/roles";
 import { NavLink, Outlet } from "react-router";
 import { useAuth } from "../contexts/AuthContext";
 

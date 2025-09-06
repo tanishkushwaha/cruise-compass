@@ -1,12 +1,13 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from "../utils/axiosInstance";
+import { Role } from "../rbac/roles";
 
 type User = {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  role: string;
+  role: Role;
 };
 
 type AuthContextType = {
@@ -16,7 +17,7 @@ type AuthContextType = {
 };
 
 // TODO: Clean this up later
-const MOCK_USER = {
+const MOCK_USER: User = {
   firstName: "John",
   lastName: "Wick",
   email: "john@example.com",
@@ -28,7 +29,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(MOCK_USER);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
