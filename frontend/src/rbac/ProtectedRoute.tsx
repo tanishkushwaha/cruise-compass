@@ -1,22 +1,21 @@
-import { Navigate } from "react-router-dom"
-import useAuth from "../hooks/useAuth"
-import Forbidden from "../pages/others/Forbidden"
-import SpinnerScreen from "../components/SpinnerScreen"
+import useAuth from "../hooks/useAuth";
+import Forbidden from "../pages/others/Forbidden";
+import SpinnerScreen from "../components/SpinnerScreen";
 
 const ProtectedRoute = ({ roles, children }: any) => {
-  const auth = useAuth()
+  const auth = useAuth();
 
-  if (auth.loading) return <SpinnerScreen />
+  if (auth.loading) return <SpinnerScreen />;
   else {
-    if (!auth.user.loggedIn) return <Navigate to='/login' />
-    else {
+    if (!auth.user.loggedIn) {
+      // return <Navigate to='/login' />
+    } else {
       if (roles.includes(auth.user.role)) {
-        return children
+        return children;
       } else {
-        return <Forbidden />
+        return <Forbidden />;
       }
     }
-
   }
-}
-export default ProtectedRoute
+};
+export default ProtectedRoute;
