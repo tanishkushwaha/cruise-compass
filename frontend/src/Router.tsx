@@ -39,12 +39,12 @@ import Cart from "./pages/user/Cart";
 import SpinnerScreen from "./components/SpinnerScreen";
 import ProtectedRoute from "./rbac/ProtectedRoute";
 import { roles } from "./rbac/roles";
+import Logout from "./pages/auth/Logout";
 
 const NavbarWrapper = () => {
   const { loading, loggedIn } = useAuth();
 
-  if (loading) return <SpinnerScreen />;
-  else if (!loggedIn) return <Navigate to='/login' />;
+  if (!loggedIn) return <Navigate to='/login' />;
   else {
     return <Navbar />;
   }
@@ -298,6 +298,12 @@ const Router = () => {
     {
       path: "login",
       Component: Login,
+    },
+    {
+      path: "logout",
+      element: (
+        <ProtectedRoute roles={Object.values(roles)} Component={<Logout />} />
+      ),
     },
     {
       path: "register",

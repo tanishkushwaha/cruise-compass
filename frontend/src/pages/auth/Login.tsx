@@ -41,7 +41,7 @@ const Login = () => {
     }));
   };
 
-  const submitForm = () => {
+  const submitForm = async () => {
     let invalidForm = false;
 
     // ID validaton
@@ -58,35 +58,53 @@ const Login = () => {
 
     if (invalidForm) return;
 
-    console.log(data);
-
     // Send the data to the backend and get the auth token
-    axios
-      .post("/api/login", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then(() => {
-        toast({
-          title: "User logged in successfully.",
-          status: "success",
-          duration: 5000,
-          isClosable: true,
-          position: "top-right",
-        });
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast({
-          title: "Invalid Credentials",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "top-right",
-        });
+    // axios
+    //   .post("/api/login", data, {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then(() => {
+    //     toast({
+    //       title: "User logged in successfully.",
+    //       status: "success",
+    //       duration: 5000,
+    //       isClosable: true,
+    //       position: "top-right",
+    //     });
+    //     navigate("/");
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     toast({
+    //       title: "Invalid Credentials",
+    //       status: "error",
+    //       duration: 5000,
+    //       isClosable: true,
+    //       position: "top-right",
+    //     });
+    //   });
+
+    const success = await auth.login(data.email, data.password);
+
+    if (!success) {
+      toast({
+        title: "Invalid Credentials",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
       });
+    } else {
+      toast({
+        title: "User logged in successfully.",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
   };
 
   return (

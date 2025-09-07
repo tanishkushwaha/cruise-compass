@@ -1,19 +1,12 @@
 import { useEffect } from "react";
 import SpinnerScreen from "../../components/SpinnerScreen";
-import axios from "../../utils/axiosInstance";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Logout = () => {
-  // const navigate = useNavigate()
+  const auth = useAuth();
 
   useEffect(() => {
-    axios
-      .post("/api/logout")
-      .then(() => {
-        // navigate('/login')
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    auth.logout();
   }, []);
   return <SpinnerScreen />;
 };
