@@ -1,23 +1,14 @@
-import { useEffect } from "react"
-import SpinnerScreen from "../../components/SpinnerScreen"
-import axios from "../../utils/axiosInstance"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from "react";
+import SpinnerScreen from "../../components/SpinnerScreen";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Logout = () => {
-  const navigate = useNavigate()
+  const auth = useAuth();
 
   useEffect(() => {
-    axios.post('/api/logout')
-      .then(() => {
-        navigate('/login')
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }, [])
-  return (
-    <SpinnerScreen />
-  )
-}
+    auth.logout();
+  }, []);
+  return <SpinnerScreen />;
+};
 
-export default Logout
+export default Logout;

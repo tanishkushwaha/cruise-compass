@@ -47,6 +47,7 @@ router.post("/", async (req: Request, res: Response) => {
       })
       .send({
         user: {
+          _id: user._id,
           firstName: user.firstName,
           lastName: user.lastName,
           phone: user.phone,

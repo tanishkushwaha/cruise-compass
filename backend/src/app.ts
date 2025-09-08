@@ -38,7 +38,7 @@ app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello from Cruise Compass API");
 });
 
-app.get("/api/user", auth, (req: ExtendedRequest, res: Response) => {
+app.get("/api/me", auth, (req: ExtendedRequest, res: Response) => {
   res.status(200).json({ message: "success", user: req.user });
 });
 
