@@ -12,16 +12,15 @@ import {
 import { useState } from "react";
 import CruiseImage from "../../assets/login.jpg";
 import FormInput from "../../components/FormInput";
-import axios from "../../utils/axiosInstance";
-import { Link, Navigate, useNavigate } from "react-router";
+import { Link, Navigate } from "react-router";
 import { useAuth } from "../../contexts/AuthContext";
+import SpinnerScreen from "../../components/SpinnerScreen";
 
 const Login = () => {
   const auth = useAuth();
   if (auth.loggedIn) return <Navigate to='/' replace />;
 
   const toast = useToast();
-  const navigate = useNavigate();
 
   // State for storing the form data
   const [data, setData] = useState({
@@ -58,39 +57,20 @@ const Login = () => {
 
     if (invalidForm) return;
 
-    // Send the data to the backend and get the auth token
-    // axios
-    //   .post("/api/login", data, {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //   .then(() => {
-    //     toast({
-    //       title: "User logged in successfully.",
-    //       status: "success",
-    //       duration: 5000,
-    //       isClosable: true,
-    //       position: "top-right",
-    //     });
-    //     navigate("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     toast({
-    //       title: "Invalid Credentials",
-    //       status: "error",
-    //       duration: 5000,
-    //       isClosable: true,
-    //       position: "top-right",
-    //     });
-    //   });
+    // Login
+    const error = await auth.login(data.email, data.password);
 
-    const success = await auth.login(data.email, data.password);
-
-    if (!success) {
+    if (error === "InvalidCredentials") {
       toast({
-        title: "Invalid Credentials",
+        title: "Invalid e-mail or password.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    } else if (error === "ServerIssue") {
+      toast({
+        title: "Cannot reach the server.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -106,6 +86,8 @@ const Login = () => {
       });
     }
   };
+
+  if (auth.loading) return <SpinnerScreen />;
 
   return (
     <>

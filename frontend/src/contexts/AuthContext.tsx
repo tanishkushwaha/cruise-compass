@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import axios from "../utils/axiosInstance";
+import a from "axios";
 import { Role } from "../rbac/roles";
 
 type User = {
@@ -16,18 +17,11 @@ type AuthContextType = {
   loggedIn: boolean;
   logout: () => void;
   user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (
+    email: string,
+    password: string
+  ) => Promise<"ServerIssue" | "InvalidCredentials" | null>;
 };
-
-// TODO: Clean this up later
-// const MOCK_USER: User = {
-//   _id: '100'
-//   firstName: "John",
-//   lastName: "Wick",
-//   email: "john@example.com",
-//   phone: "123456",
-//   role: "USER",
-// };
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -36,23 +30,28 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     try {
-  //       setLoading(true);
-  //       const res = await axios.get("/api/user");
-  //       setUser(res.data.user);
-  //       setLoggedIn(true);
-  //     } catch (err) {
-  //       console.error(err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   getUser();
-  // }, []);
+  useEffect(() => {
+    const refreshSession = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get("/api/me");
+        setUser(res.data.user);
+        setLoggedIn(true);
+      } catch (err) {
+        if (err instanceof Error) {
+          console.error(err.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    refreshSession();
+  }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<"ServerIssue" | "InvalidCredentials" | null> => {
     setLoading(true);
 
     try {
@@ -68,10 +67,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       setUser(res.data.user);
       setLoggedIn(true);
-      return true;
+      return null;
     } catch (err) {
-      console.log(err);
-      return false;
+      if (a.isAxiosError(err)) {
+        if (err.code === "ECONNREFUSED" || err.code === "ERR_NETWORK") {
+          return "ServerIssue";
+        }
+        if (err.response?.status === 401 || err.response?.status === 404) {
+          return "InvalidCredentials";
+        }
+      }
+      return null;
     } finally {
       setLoading(false);
     }

@@ -22,7 +22,10 @@ const auth = async (
     const decode = jwt.verify(req.cookies.token, process.env.JWT_SECRET!);
 
     if (typeof decode !== "string" && decode.id) {
-      const user = await User.findById(decode.id, "-password");
+      const user = await User.findById(
+        decode.id,
+        "-createdAt -updatedAt -__v -password"
+      );
 
       if (!user) {
         return res.status(401).send({ message: "Invalid token id" });
